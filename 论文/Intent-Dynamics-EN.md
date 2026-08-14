@@ -166,6 +166,23 @@ Unexplained-11 splits into two groups (consistent with internal correlation 38/5
 
 ## 5. Intent Intervenability: Inference-Time Spectrum and Causal Control
 
+### 5.0 Positioning Statement: Existing Interventions Are Structural/Expressive-Layer — NOT Flow-Of-Thought Layer (Important Distinction)
+
+**Layer relations that must be clarified** (three periods of this research):
+
+| Layer | Period | Metrics/Mechanisms | Status |
+|---|---|---|---|
+| **Structural/expressive-layer intervention** | v0.68–v0.73 (earlier) | sent_proj projection (core-clinging)/topic-word retention/logits bias/beam selection/virtual-token injection — **all based on the discriminator's static projection and word-level structural metrics** | **Implemented (this section)** |
+| **Measurement/monitoring layer (flow-of-thought)** | v0.74 (later) | jump/turn steepness/Hurst/transfer entropy/coupling — capturing human–AI **flow differences** (§3) | Implemented (measurement) |
+| **Flow-of-thought intervention** | v0.75 conception (future) | trajectory planner uses wave patterns (§3 target distributions) as **generation targets** | **Not implemented (§6 engine)** |
+
+**Explicit statement**: the §5 intervention spectrum (probability→logits→beam→seed→virtual token→Kalman gating) is **entirely based on structural/expressive-layer metrics** — the intervention target is "generated text clings to the core" (static projection consistency, sent_proj) — **these experiments (v0.68–v0.73) predate flow-of-thought measurement (v0.74) and did NOT use the §3 flow metrics (jump/turn/Hurst/TE/coupling) at all**. In this study, flow-of-thought metrics serve the **measurement and monitoring role** (revealing human–AI differences); using flow metrics as **intervention targets** (e.g., "generated trajectory's turn steepness approaching human levels") is the Intent Dynamics Engine's conception (§6) — **not yet implemented**. Therefore:
+1. §5's "117%/103% oracle" proves the spectrum ceiling of **structural/expressive-layer intervention** (static core-clinging organization) — not the flow layer;
+2. §3's flow metrics are **observational evidence** (human waves vs AI flat) — not the objective of existing interventions;
+3. The **implementation path for flow-layer intervention** (wave patterns as target distributions) is in §6.4 — acceptance = end-to-end generation's five metrics approach the human portrait (only then can "flow-of-thought intervention" be claimed implemented).
+
+
+
 ### 5.1 Intervention Spectrum (201 runs / 22 conditions — oracle = Δ÷0.09×100)
 
 Probability 17-25% → logits 40% → beam 51% → seed+beam **82%** → virtual-token channel (vt_ext 49% — **+16 points over the logits carrier**) → three-layer stacking **vt_seed_beam 117%** → **Kalman-gated vt_gate_beam 103% (67% cost reduction — 0.37 s/oracle-point — recommended form)**. No-beam tests: seed effect depends on beam (pure seed −1%) — beam's net contribution 36 points irreplaceable — gating 46% is the no-beam optimum — **"when to inject" matters more than "what to inject"** (minimal-intervention principle).
