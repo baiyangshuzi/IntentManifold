@@ -1,0 +1,130 @@
+{
+ "bilingual_zh": {
+  "5": {
+   "d": -0.122,
+   "p": 0.0,
+   "human": 0.0046,
+   "ai": 0.0081
+  },
+  "10": {
+   "d": 0.534,
+   "p": 0.0,
+   "human": 0.4327,
+   "ai": 0.2866
+  },
+  "11": {
+   "d": 0.601,
+   "p": 0.0,
+   "human": 0.7489,
+   "ai": 0.5199
+  },
+  "22": {
+   "d": -0.322,
+   "p": 0.0,
+   "human": 0.052,
+   "ai": 0.0996
+  },
+  "26": {
+   "d": -0.306,
+   "p": 0.0,
+   "human": 0.032,
+   "ai": 0.0669
+  },
+  "34": {
+   "d": 0.588,
+   "p": 0.0,
+   "human": 0.5926,
+   "ai": 0.4039
+  },
+  "43": {
+   "d": -0.335,
+   "p": 0.0,
+   "human": 0.0517,
+   "ai": 0.1027
+  },
+  "46": {
+   "d": 0.598,
+   "p": 0.0,
+   "human": 0.4978,
+   "ai": 0.323
+  },
+  "48": {
+   "d": 0.545,
+   "p": 0.0,
+   "human": 0.714,
+   "ai": 0.5312
+  },
+  "52": {
+   "d": -0.224,
+   "p": 0.0,
+   "human": 0.0398,
+   "ai": 0.0669
+  },
+  "59": {
+   "d": 0.652,
+   "p": 0.0,
+   "human": 0.5951,
+   "ai": 0.4071
+  }
+ },
+ "dual_model": {
+  "5": {
+   "d_human_vs_DS": 0.184,
+   "d_human_vs_Qwen": 0.01,
+   "dir_consistent": true
+  },
+  "10": {
+   "d_human_vs_DS": 0.499,
+   "d_human_vs_Qwen": 0.425,
+   "dir_consistent": true
+  },
+  "11": {
+   "d_human_vs_DS": 0.483,
+   "d_human_vs_Qwen": 0.537,
+   "dir_consistent": true
+  },
+  "22": {
+   "d_human_vs_DS": -0.307,
+   "d_human_vs_Qwen": -0.332,
+   "dir_consistent": true
+  },
+  "26": {
+   "d_human_vs_DS": -0.267,
+   "d_human_vs_Qwen": -0.374,
+   "dir_consistent": true
+  },
+  "34": {
+   "d_human_vs_DS": 0.303,
+   "d_human_vs_Qwen": 0.366,
+   "dir_consistent": true
+  },
+  "43": {
+   "d_human_vs_DS": -0.419,
+   "d_human_vs_Qwen": -0.344,
+   "dir_consistent": true
+  },
+  "46": {
+   "d_human_vs_DS": 0.521,
+   "d_human_vs_Qwen": 0.612,
+   "dir_consistent": true
+  },
+  "48": {
+   "d_human_vs_DS": 0.49,
+   "d_human_vs_Qwen": 0.488,
+   "dir_consistent": true
+  },
+  "52": {
+   "d_human_vs_DS": -0.219,
+   "d_human_vs_Qwen": -0.419,
+   "dir_consistent": true
+  },
+  "59": {
+   "d_human_vs_DS": 0.419,
+   "d_human_vs_Qwen": 0.456,
+   "dir_consistent": true
+  }
+ },
+ "n_dir_consistent": 11,
+ "english_note": "英文无判别器（bge 嵌入级——非同一实体）——维度级跨语言不可直接比较——仅作方向参考",
+ "criteria": "D1：跨模型方向一致 → 深层组织特征"
+}

@@ -1,0 +1,35 @@
+{
+ "n_clauses": 26734,
+ "n_sources": 5,
+ "target_dims": [
+  5,
+  10,
+  11,
+  22,
+  26,
+  34,
+  43,
+  46,
+  48,
+  52,
+  59
+ ],
+ "fp_shape": [
+  26734,
+  64
+ ],
+ "h1_shape": [
+  26734,
+  256
+ ],
+ "columns": [
+  "source",
+  "doc",
+  "side",
+  "prompt",
+  "seed",
+  "seg",
+  "para",
+  "clause"
+ ]
+}

@@ -1,0 +1,121 @@
+{
+ "target": [
+  5,
+  10,
+  11,
+  22,
+  26,
+  34,
+  43,
+  46,
+  48,
+  52,
+  59
+ ],
+ "s_active": [
+  5,
+  10,
+  11,
+  22,
+  26,
+  34,
+  43,
+  46,
+  48,
+  52,
+  59
+ ],
+ "target_activity": {
+  "5": {
+   "var": 0.0007754298858344555,
+   "domain_d": 0.053061600774526596,
+   "seed_ratio": 0.08878408617208657,
+   "dead": false,
+   "noisy": false,
+   "active": true
+  },
+  "10": {
+   "var": 0.07667800784111023,
+   "domain_d": -0.49025729298591614,
+   "seed_ratio": 0.06396443517930275,
+   "dead": false,
+   "noisy": false,
+   "active": true
+  },
+  "11": {
+   "var": 0.15050765872001648,
+   "domain_d": -0.2947130799293518,
+   "seed_ratio": 0.07826745623705524,
+   "dead": false,
+   "noisy": false,
+   "active": true
+  },
+  "22": {
+   "var": 0.02493487484753132,
+   "domain_d": 0.4377511143684387,
+   "seed_ratio": 0.09147782859270014,
+   "dead": false,
+   "noisy": false,
+   "active": true
+  },
+  "26": {
+   "var": 0.018603798002004623,
+   "domain_d": 0.1599055826663971,
+   "seed_ratio": 0.14110863469039234,
+   "dead": false,
+   "noisy": false,
+   "active": true
+  },
+  "34": {
+   "var": 0.10714635252952576,
+   "domain_d": -0.3578729033470154,
+   "seed_ratio": 0.15279130195988194,
+   "dead": false,
+   "noisy": false,
+   "active": true
+  },
+  "43": {
+   "var": 0.027485176920890808,
+   "domain_d": 0.3717137575149536,
+   "seed_ratio": 0.06987979036541944,
+   "dead": false,
+   "noisy": false,
+   "active": true
+  },
+  "46": {
+   "var": 0.09073086827993393,
+   "domain_d": -0.3768864572048187,
+   "seed_ratio": 0.1465231515021296,
+   "dead": false,
+   "noisy": false,
+   "active": true
+  },
+  "48": {
+   "var": 0.11953572928905487,
+   "domain_d": -0.40803447365760803,
+   "seed_ratio": 0.12941056324672803,
+   "dead": false,
+   "noisy": false,
+   "active": true
+  },
+  "52": {
+   "var": 0.015312368050217628,
+   "domain_d": 0.12350122630596161,
+   "seed_ratio": 0.04873657687507708,
+   "dead": false,
+   "noisy": false,
+   "active": true
+  },
+  "59": {
+   "var": 0.09297161549329758,
+   "domain_d": -0.3331669569015503,
+   "seed_ratio": 0.10149641450582318,
+   "dead": false,
+   "noisy": false,
+   "active": true
+  }
+ },
+ "n_dead_total": 4,
+ "n_noisy_total": 1,
+ "criteria": "dead=方差<p5；noisy=跨 seed 方差比>3×中位；active=非两者"
+}

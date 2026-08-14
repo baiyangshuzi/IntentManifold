@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.env
+*.log
+data/dim_analysis/mlp_checkpoint.pt
+preview/
