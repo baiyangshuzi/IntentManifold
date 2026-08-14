@@ -29,9 +29,11 @@ Autoregressive models have a single driver: **local probability maximization** �
 - **dim10 = topic-organization dimension** (perturbation ↑ topic density +0.12~+0.23)
 - **Polarity grouping**: Human-organization group (dim10/11/34/46/48/59) vs AI-feature group (dim22/26/43/52/5)
 
-### 3. Intent Intervenability (Inference-Time Spectrum — 201 runs / 22 conditions)
+### 3. Structural/Expressive-Layer Intervention (Inference-Time Spectrum — 201 runs / 22 conditions — NOT the flow-of-thought layer)
 
-Probability 17-25% → logits 40% → beam 51% → seed+beam **82%** → virtual-token channel → **vt_seed_beam 117%** → **vt_gate_beam 103% (67% cost reduction — recommended)** — minimal-intervention principle (seed+beam = minimal effective combination) — "when to inject" matters more than "what to inject".
+**Positioning (consistent with paper §5.0)**: this spectrum is **based on structural/expressive-layer metrics** (the discriminator's static projection sent_proj — "core-clinging", topic-word retention, logits bias, beam selection, virtual-token injection) — the intervention target is **static organizational consistency** (clinging to the core) — **predating flow-of-thought measurement (v0.74) — the flow metrics (jump/turn/Hurst/TE/coupling) were NOT used at all** (those are §2 measurement/monitoring-layer observational evidence, not the objective of existing interventions). **Using flow metrics as intervention targets (e.g., "generated trajectory's turn steepness approaching human levels") is the Intent Dynamics Engine's conception (§4 — not implemented)**.
+
+Spectrum: probability 17-25% → logits 40% → beam 51% → seed+beam **82%** → virtual-token channel → **vt_seed_beam 117%** → **vt_gate_beam 103% (67% cost reduction — recommended)** — minimal-intervention principle (seed+beam = minimal effective combination) — "when to inject" matters more than "what to inject".
 
 ### 4. Intent Dynamics Engine (Three-Layer Architecture)
 
