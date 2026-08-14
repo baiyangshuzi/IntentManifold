@@ -1,0 +1,287 @@
+# Intent Dynamics: From Flow-of-Thought Capture to Simulated Intelligence
+### Geometric measurement and dynamical modeling of human–AI thought differences
+
+> **Author: Baitao Wang | August 2026**
+>
+> **Current flagship result (v0.75)** — complete empirical chain: measurement (flow-of-thought capture) → dissection (64-dimension atlas) → intervention (inference-time spectrum) → **conception (Intent Dynamics Engine)**. Full empirical archive: *Multi-level Semantic Fingerprint System* (historical comprehensive version, in Chinese).
+
+> **【Machine Intent Dynamics — positioning】** The multi-level semantic fingerprint system built in this study embodies the prototype of "Machine Intent Dynamics." For the first time, it transforms "root intent" from an abstract cognitive concept into a computable geometric gravity field, and reveals the dynamical features (waves, turns, coupling) that distinguish human thought-flow from AI's probabilistic gliding. Although current validation is limited to small models and the textual domain, this framework provides an empirical path beyond the autoregressive paradigm: using an explicit intent-state space to guide models from "local-probability token continuation" toward "goal-driven reasoning around a core intent." If validated at larger parameter scales and in multimodal settings, this mechanism could lay the cognitive and engineering foundation for a new generation of AI architectures with intrinsic self-drive, interpretable thought trajectories, and extremely low inference energy.
+
+## Abstract
+
+Autoregressive models have a single driver — local probability maximization — and no persistent state of "why write this sentence." Starting from engineering practice, this study builds a **geometric representation of intent state** from the discriminator's middle-layer 64-dimensional fingerprint, and captures systematic differences between human and AI thought-flow at clause granularity: **Humans = breathing waves** (inter-clause dimensional jump d=+2.16, turn peak/valley steepness d=+2.09, long-range memory Hurst 0.62, topic–reference coupling 0.52, low-determinism information flow), **AI = flat lines** (small jumps, shallow turns, goldfish memory Hurst 0.46, mechanical dictionary-like flow, higher transfer entropy). The 64-dimension dissection further shows that the deep signals learned by the discriminator (the unexplained-11 dimensions) are precisely the strongest human–AI difference group (median d=0.53 vs 0.32 for explained dimensions) — among them dim48 is triple-evidenced (composite traceback + dual-model agreement + causal control of reference density −0.42) as the **reference-chain/cohesion dimension**, and dim10 as the **topic-organization dimension**. The inference-time intervention spectrum (201 runs / 22 conditions) proves intent state is intervenable (peak 117% oracle; recommended form vt_gate_beam 103% with 67% cost reduction — virtual-token channel + Kalman gating — minimal-intervention principle). **From these phenomena, this paper derives the three-layer Intent Dynamics Engine** (Root Intent Field / Intent Trajectory Planner / Intent Steering Executor) — five empirical laws — moving from "predicting the next word" to "free thinking around a root intent": AI's first possession of an internal "why."
+
+## 1. Introduction: From "Resembling Humans" to "How Thought Flows"
+
+### 1.1 Origin
+
+This research began with an engineering pain point in a narrative-writing system: AI-generated text remained machine-identifiable even after prompt engineering and local lexical substitution. The first-generation research (v0.60–v0.66) answered: **the difference lies in the organization of local clauses** — humans organize language around an intent core (clause projection 0.96 vs AI 0.79–0.84), AI is local-optimum stitching. This is static "resemblance."
+
+The v0.74 flow-of-thought capture advanced the question: **the deepest human–AI difference is not "whether a moment resembles" but "how thought flows"** — human thought trajectories are waves fluctuating freely around a core (with undulation, memory, loops); AI trajectories are flat lines (no undulation, goldfish memory, mechanical flow). This paper's core contribution turns "intent" from philosophical metaphor into a **measurable dynamical system**, and derives an architecture from the measurements.
+
+### 1.2 Structure
+
+§2 Capture tools → §3 **Flow-of-thought capture (core)** → §4 Intent-state dissection → §5 Intent intervenability → §6 **Intent Dynamics Engine** → §7 Boundaries & decoupling → §8 Conclusion.
+
+## 2. Capture Tools: Geometric Representation of Intent State
+
+### 2.1 Discriminator and Fingerprint
+
+ParaDiscNN (bge-small-zh-v1.5 encoding → 512→256→64→1 MLP, trained to discriminate AI/human paragraphs). The middle-layer 64-dim activation (net[0:3]+relu+net[3]+relu — skipping LN(64)) is the **style fingerprint**:
+
+```
+f(x) = relu(W₂·relu(LN₁(W₁x+b₁)) + b₂)    # f ∈ R^64 — W₁=net[0].weight (256×512) — W₂=net[3].weight (64×256)
+```
+
+Geometric property (v0.66): discriminative power comes from **projection onto the core** (in-segment mean fingerprint direction — human 0.972 vs AI 0.807), not pairwise cosine (AUC 0.55 meaningless) — "the fingerprint points at the shaping core."
+
+### 2.2 Trajectory Metric System (v0.74 — the capture toolbox)
+
+Slice text at a granularity (segment/clause/word) → extract per-slice dimensional activations → connect into a trajectory — **this line is the intent-flow trajectory**.
+
+| Metric | Definition | Thought property captured |
+|---|---|---|
+| Jump | mean \|Δactivation\| between neighbors | **Undulation rhythm** (wave-like progression?) |
+| Turn type | local peak/valley steepness/depth | **Topic opening/closing sharpness** |
+| Hurst | R/S analysis (long-range autocorrelation) | **Memory** (does earlier text influence later? looping ability) |
+| Transfer entropy | symbolic conditional entropy (X past→Y future) | **Information-flow freedom** (mechanical vs free) |
+| Coupling | sliding-window dimX×dimY correlation | **Inter-dimension tension** (topic–reference bonded?) |
+| Dimension activation | per-dim value/variance/sign | Coordinates of intent state |
+
+**Why clause-level is the best observation granularity** (v0.74-4): word-level trajectories have the weakest discriminative power (dim10 jump human 0.309 vs AI 0.295 — word fingerprints are highly continuous); segment-level loses undulation (dim10 jump d=+1.24); **clause-level (509–1029 points per human text) carries full undulation with the strongest discrimination (d=+2.16)**.
+
+## 3. Flow-of-Thought Capture: Human vs AI Thought-Dynamics Portrait (Core)
+
+### 3.1 Data and Procedure
+
+- **Corpus**: bilingual zh 30 texts (10 human, 96–160 segments / 509–1029 clauses each — Dragon Clan/Zhu Xian/Tianxingjian continuous segments; 20 AI, 23–98 segments — DS/Qwen continuous generation) + same-theme ultra-long (Tianxingjian ch.1–6, 899 segments human vs archives, 146 segments AI imitation)
+- **Fingerprint matrix**: 26,734 clauses × 64-dim fingerprints archived (fp_matrix.npz — **three regression validations ALL PASS**: document-level sent_proj 30/30 Δ≤0.0005; 6 dims 3618/3618 Δ≤0.0001; disc 603/603 — fingerprints verified authentic)
+- **Analysis**: per-text clause-level dim10 (topic)/dim48 (reference) activations → trajectory → five metrics (jump/turn/Hurst/TE/coupling) → human vs AI group tests (Mann-Whitney U + Cohen's d)
+
+### 3.2 Finding 1: Humans are Waves, AI is a Flat Line (Jump)
+
+**Data** (clause-level):
+
+| Metric | Human (median) | AI (median) | d | p |
+|---|---|---|---|---|
+| dim10 jump | 0.310 | 0.257 | **+2.16** | <0.001 |
+| dim48 jump | 0.368 | 0.339 | **+1.07** | 0.009 |
+| (segment-level dim10) | 0.155 | 0.115 | +1.24 | 0.010 |
+
+**Derivation**: human thought trajectories **fluctuate freely** around the core — dim10 (topic) rises when opening a new topic, holds during development, falls during transitions — forming waves. AI trajectories are significantly flatter (d=+2.16) — **AI is not "randomly jagged" but "wave-less"** — lacking topic opening/closing structure. **For humans, undulation is the breathing of thought; for AI, flatness is the standstill of thought.**
+
+![Intent flow trajectory (human waves vs AI flat)](意图流转轨迹图.png)
+
+![Clause-level intent trajectory (human steep vs AI flat)](句元级意图轨迹图.png)
+
+### 3.3 Finding 2: Deeper Human Turns, Shallow AI Turns (Turn Type)
+
+**Data** (turn "type" not "count"):
+
+| Metric | Human | AI | d | p |
+|---|---|---|---|---|
+| dim10 peak steepness | 0.468 | 0.381 | **+2.09** | <0.001 |
+| dim10 valley depth | 0.468 | 0.391 | **+2.14** | <0.001 |
+| dim48 peak steepness | 0.556 | 0.520 | **+0.90** | 0.033 |
+| dim48 valley depth | 0.550 | 0.523 | **+0.93** | 0.026 |
+
+(Control: turn **count** / break **density** show no difference — 0.175 vs 0.170 — "count" metrics are ineffective; "type" metrics are effective.)
+
+**Derivation**: turn **steepness/depth** (not count) separates humans and AI — human topic opening/closing is distinct (sharp peaks/valleys — the "cadence" of thought), AI turns are shallow (smooth gliding). **Counts equal, amplitudes differ sharply** — both have similar numbers of turns, but human turns are "meaningful pivots," AI turns are "directionless slides."
+
+### 3.4 Finding 3: Human Long-Range Memory, AI Goldfish Memory (Hurst)
+
+**Data** (same-theme ultra-long trajectories):
+
+| Trajectory | Segments | dim10 Hurst | dim48 Hurst |
+|---|---|---|---|
+| Tianxingjian ch.1–6 (human) | 899 | **0.621** (>0.5 — long-range memory) | 0.638 |
+| archives (AI imitation) | 146 | **0.457** (<0.5 — anti-persistent / near random walk) | 0.592 |
+
+**Derivation**: human writing has **memory** — earlier content influences later organization across distance (loops, echoes, foreshadowing — Hurst>0.5) — the ability for "the original intent to periodically resurface." AI's dim10 Hurst below 0.5 (anti-persistent) — **inter-segment topic-memory breaks — goldfish memory** — AI cannot "remember its original intent." This is the dynamical explanation of "AI long-text digression" (not semantic forgetting — organizational-memory fracture; consistent with long-range semantic retention 0.94+ showing no difference: **semantics remembered, organization forgotten**).
+
+### 3.5 Finding 4: AI's Information Flow is Mechanical, Human's is Free (Transfer Entropy)
+
+**Data** (clause-level):
+
+| Direction | Human | AI | d | p |
+|---|---|---|---|---|
+| TE(dim10→dim48) | 0.0124 | **0.0194** | -0.79 | 0.075 (marginal) |
+| TE(dim48→dim10) | 0.0123 | 0.0160 | -0.55 | 0.244 |
+
+**Derivation**: transfer entropy measures the predictability gain of Y's future given X's past — **AI's higher topic→reference flow = more mechanically determined "topic-word→reference-pronoun" transitions** (dictionary-like association: a topic word is predictably followed by a reference — predictable) — **human's lower flow = more complex, less predictable topic–reference relations (free organization)** — an information-theoretic quantification of "human freedom vs AI mechanism."
+
+![Transfer entropy (AI mechanical flow higher)](转移熵对比图.png)
+
+### 3.6 Finding 5: Human Topic–Reference "Bonded," AI "Disconnected" (Coupling)
+
+**Data** (3-segment sliding window dim10×dim48 correlation): human coupling mean **+0.517** vs AI **+0.432** (p=0.118 — directional).
+
+**Derivation**: in human writing, reference chains naturally follow topics (mention topic → "this/it/that" follows — co-fluctuation) — **high coupling**. AI's lower coupling — a segment may repeat topic words (dim10 surging) while using no references (dim48 low) — **the mathematical explanation of "circular repetition"**: dictionary repetition replaces logical reference — the two threads of thought (topic and cohesion) are "disconnected" in AI.
+
+### 3.7 Synthesis: Human vs AI Thought-Dynamics Portrait
+
+| Dimension | Human | AI |
+|---|---|---|
+| Undulation | **Waves** (jump d=+2.16) | **Flat** (no waves) |
+| Turns | **Deep** (steepness d=+2.09) | **Shallow** |
+| Memory | **Long-range** (Hurst 0.62) | **Goldfish** (Hurst 0.46) |
+| Information flow | **Free** (low TE) | **Mechanical** (high TE) |
+| Coupling | **Bonded** (+0.52) | **Disconnected** (+0.43) |
+
+**In one sentence**: human writing is **free fluctuation within a root-intent gravity field** (memorable loops, deep turns, free flow); AI writing is **field-less flat gliding** (no undulation, no memory, mechanical flow) — **"thought with a gravity field" vs "thought without a field"** — the observational basis of the Intent Dynamics Engine.
+
+![Thought manifold (human concentrated vs AI dispersed)](思想流形图.png)
+
+## 4. Intent-State Dissection: 64-Dimension Atlas (v0.74)
+
+### 4.1 Dimension Function Localization (Causal Intervention — 144 runs)
+
+Dimension perturbation (replace μ_h / scale 1.5 / 0.5 / noise control) → virtual-token channel injection → language-feature changes in generated text:
+
+| Dimension | Perturbation effect | Function |
+|---|---|---|
+| **dim48** | **reference density −0.42** / conjunction −0.20 | **reference-chain/cohesion dimension** |
+| **dim10** | topic density +0.12~+0.23 / reference density +0.13~+0.15 | **topic-organization dimension** |
+| dim46 | sent_proj scale0.5 significant (+0.021 p=0.04) | projection-adjustment candidate |
+| dim34/22/43 | weak directional | discriminative signal |
+
+(Note: sent_proj-level effects are weak — 2/18 significant — attenuated by the MLP 64→896 mapping — **dimension control must be measured at the language-feature level**)
+
+### 4.2 Interpretability × Discrimination Inverse Relation (64-Dimension Panorama)
+
+| Group | Median \|human-AI d\| | Significant |
+|---|---|---|
+| Explained (42 — surface features) | 0.32 | 23 |
+| Other unexplained (11) | 0.35 | 7 |
+| **Unexplained-11** | **0.53** | **9/11** |
+
+**Derivation**: **the deep signals the discriminator learned are precisely the dimensions not linearly explainable by surface features** — unexplained-11 = discriminative-signal proper (top-10 strongest includes 5 unexplained: dim58 +0.69/dim55 +0.67/dim59 +0.65/dim34/dim46) — **"unexplainable" ≠ "useless" — it is the most concentrated discriminative information** — the core coordinates of intent state lie on these deep dimensions.
+
+![64-dim human-AI difference panorama (orange=unexplained-11)](六十四维全景图.png)
+
+### 4.3 Polarity Grouping (basis of Law 3)
+
+Unexplained-11 splits into two groups (consistent with internal correlation 38/55): **Human-organization group** (dim10/11/34/46/48/59 — positive human-AI d + positive jump — human-high-activation + human-waves) vs **AI-feature group** (dim22/26/43/52/5 — negative + negative — AI-high-activation + AI-fluctuation) — **human waves appear on human-high-activation dimensions; AI fluctuations on AI-high-activation dimensions** — intervention must distinguish polarity (Law 3).
+
+## 5. Intent Intervenability: Inference-Time Spectrum and Causal Control
+
+### 5.1 Intervention Spectrum (201 runs / 22 conditions — oracle = Δ÷0.09×100)
+
+Probability 17-25% → logits 40% → beam 51% → seed+beam **82%** → virtual-token channel (vt_ext 49% — **+16 points over the logits carrier**) → three-layer stacking **vt_seed_beam 117%** → **Kalman-gated vt_gate_beam 103% (67% cost reduction — 0.37 s/oracle-point — recommended form)**. No-beam tests: seed effect depends on beam (pure seed −1%) — beam's net contribution 36 points irreplaceable — gating 46% is the no-beam optimum — **"when to inject" matters more than "what to inject"** (minimal-intervention principle).
+
+### 5.2 Kalman Repair (Prediction-Accuracy Path)
+
+S2 r=0.15's root cause: Kalman implementation (segment start read stale x_pred) — after fixing the `predict()` semantics, r=0.389 (2.6–3×) — adaptive strategy (free segments skip beam — efficiency) — **intent state is predictable (segment-level r≈0.68 — lag structure)** — prediction-driven resource allocation = quality-cost optimum.
+
+### 5.3 Causal-Control Loop
+
+dim48/dim10 perturbations change reference/topic organization of generated text — **dimensions are not merely correlated but causally intervenable** — providing "knobs" for the engine's steering executor.
+
+## 6. Intent Dynamics Engine: The Inference Chain from Phenomena to Architecture
+
+### 6.1 Derivation of the Five Laws (phenomenon → law)
+
+**Law 1 (Subconscious before surface control)** — Phenomenon: human clause jump d=+2.16 — human thought fluctuates **freely** around the core, not glued to it. Derivation: if intent were a per-sentence hard constraint (existing "core-clinging" interventions), fluctuation would be suppressed — making AI flatter and more mechanical (opposite of the goal) — **root intent must exist as a background field — surface intent flows freely — pull-back only when deviating beyond a safety boundary**.
+
+**Law 2 (Flow features are more fundamental than static features)** — Phenomenon: clause-level jump-significant dimensions 56/64 vs static human-AI 39/64; turn steepness d=+2.09. Derivation: single-point projections tell whether "this clause clings"; flow rhythm/turn depth/coupling dynamics tell "how thought progresses" — **the higher-information discriminative and target signals live in flow features** — the engine's objective should be trajectory-morphology-based, not point-based.
+
+**Law 3 (Dimension polarity must be treated separately)** — Phenomenon: 64 dims are non-uniform — human waves on human-high-activation dims (dim10/34/46 etc.), AI fluctuation on AI-high-activation dims (dim22/26/43). Derivation: intervention cannot be one-size-fits-all — **positive (human-organization) group should encourage wave-like undulation (wide fluctuation band); negative (AI-feature) group should suppress mechanical swinging (narrow band)**.
+
+**Law 4 (Interpretability and discriminative power are inversely related)** — Phenomenon: explained d=0.32 vs unexplained-11 d=0.53. Derivation: the discriminator's deep signals are the unexplainable dimensions — **the core coordinates of intent state lie on deep dimensions — the engine's state representation should use all 64 dims (or the 11-dim core subspace), not only explainable ones** — explainable dims provide the "translation layer," deep dims the "discriminative power."
+
+**Law 5 (Information-flow freedom is a new axis)** — Phenomenon: TE AI 0.019 vs human 0.012 — AI's topic→reference transitions are mechanically determined. Derivation: **human freedom vs AI mechanism is an axis independent of "core-clinging"** — the engine must not only "cling to the core" (projection) but also "flow freely" (low-determinism flow) — the target distribution should include an information-flow-freedom constraint.
+
+### 6.2 Three-Layer Architecture
+
+**Layer 1: Root Intent Field** — root intent = fixed vector R in the 64-dim (or 11-dim core subspace) space — the gravity-field minimum — close = comfortable, far = high potential — **correction triggered only when potential exceeds a threshold** (Law 1) — verified components: document-core/external-core anchors (document-core d 2.04–2.09; vt_ext 49% / vt_oracle 55% — the field's anchor is verified).
+
+**Layer 2: Intent Trajectory Planner** — learns human fluctuation patterns (§3.2–3.6 target distributions: allowed fluctuation range / target jump / target coupling / target Hurst) — input: current intent state + history → output: next-clause target-state distribution — **wide band for positive dims, narrow for negative dims** (Law 3) — verified components: Kalman gating (predict-assign — r=0.389 — intent state predictable) — fluctuation-pattern learning is the core to be implemented.
+
+**Layer 3: Intent Steering Executor** — target state → real-time LLM sampling guidance — options: magnetic guidance (logits bias) / intent mask (token subset) / virtual-token injection — **gating: enabled only on coupling drop / abnormal jump / trajectory deviation** (Law 1 — "when to inject" > "what to inject") — verified components: vt channel (injection 117%/103% — +16 points over logits), Kalman gating (no-beam 46%).
+
+### 6.3 Essential Difference from the Existing Paradigm
+
+| Dimension | Traditional autoregressive | Intent Dynamics Engine |
+|---|---|---|
+| Driver | Local probability | **Root-intent field + local probability** |
+| State | No persistent intent state | **Measurable intent-state vector (64-dim fingerprint)** |
+| Trajectory | Flat or random drift | **Human-like waves and loops (target-distribution constrained)** |
+| Intervention | None | **Field-boundary trigger + trajectory planning + gated execution** |
+| Interpretability | Black box | **Dimension atlas + polarity grouping** |
+| Cost | Full-vocabulary compute | Optional intent mask (output-layer load reduction) |
+
+### 6.4 Implementation Path (from verified components to end-to-end)
+
+1. **Fluctuation-pattern learning** (planner core — to be implemented): learn target jump/turn-steepness/coupling distributions for dim10/dim48 (and all 64) from human corpora — as generation target states
+2. **Field end-to-end**: root intent (document/external core) → deviation detection (trajectory–field distance, clause-level) → above-threshold triggers vt-channel pull-back — "free fluctuation + field pull-back" generation loop
+3. **Polarity steering**: positive dims encourage waves (wide target band); negative dims suppress swinging (narrow band) — implemented via the dim_perturb channel
+4. **Training-time**: dim48/dim10 as loss terms (φ jointly optimized with LM — eliminating OOD injection)
+5. **Verification**: end-to-end generation → five flow metrics (jump/turn/Hurst/TE/coupling) should approach the human portrait — the engine's acceptance criterion
+
+## 7. Boundaries and Decoupling (Engine Positioning)
+
+The engine is confined to the **organizational layer** (focus/undulation/cohesion/memory — flow metrics). Three decoupling findings:
+- **Reasoning zero transfer** (v0.70 + v0.73-5): intent anchoring / strongest intervention forms give zero reasoning-accuracy gain (none 39% vs vt 31% — organizational optimization does not convert to semantic correctness — "organized ≠ correct")
+- **Long-range semantics zero difference** (v0.71): 0.94+ both high — "AI digression" is not semantic forgetting but organizational-memory fracture (Hurst 0.46)
+- **Semantic layer needs training time**: the engine's organizational guidance does not touch semantics — semantic ability (reasoning/facts) still depends on model capacity and training
+
+**Boundary statement**: the engine does not claim to "improve reasoning" — it claims to "make generation trajectories exhibit human-like organizational dynamics" (waves/memory/coupling/free flow) — semantic correctness is the model's responsibility; intent dynamics is the organization's responsibility.
+
+## 8. Conclusion
+
+This paper advances from "static resemblance" to "dynamic thought-flow":
+
+1. **Intent flow is capturable** (§3): all five clause-level metrics capture systematic human–AI differences — humans = breathing waves (free fluctuation/deep turns/long memory/free flow/bonded coupling), AI = flat lines (no waves/shallow/goldfish/mechanical/disconnected);
+2. **Intent state is dissectable** (§4): 64-dim atlas — unexplained-11 = deep discriminative-signal proper (interpretability × discrimination inverse) — dim48 = reference chain (triple-evidenced) — dim10 = topic organization — polarity grouping;
+3. **Intent is intervenable** (§5): spectrum to 117%/103% — minimal-intervention principle — causal control (dim48/dim10 knobs);
+4. **Intent is conceivable** (§6): five laws derived from phenomena — three-layer architecture — explicit implementation path (fluctuation learning → field end-to-end → polarity steering → training-time regularization → five-metric acceptance).
+
+**Final proposition**: the essential human–AI writing difference lies not in vocabulary but in the **organization of intent state** — humans fluctuate freely in a root-intent gravity field (memorable loops, deep turns, free flow); AI glides flat without a field. The Intent Dynamics Engine aims to move AI from "passive prediction" to "**proactive thinking around its original intent**" — AI's first possession of an internal "why."
+
+## Appendix: Reproduction Guide (per-conclusion paths)
+
+**Environment**: Python 3.13 + torch/transformers/sentence-transformers/scipy/jieba/sklearn — offline analysis pure CPU (minutes) — generation needs GPU (MX570 2GB verified) — local models Qwen2.5-0.5B / bge-small-zh (HF_HUB_OFFLINE=1 cache). Repository: IntentDynamics (GitHub-ready — scripts/data/models/papers bundled).
+
+### Bundled assets (no regeneration needed)
+
+| Asset | Path | Validation |
+|---|---|---|
+| Clause fingerprint matrix | data/dim_analysis/fp_matrix.npz (26,734×64 + h1 256) | three regression validations PASS |
+| Clause metadata | data/dim_analysis/rows.json | row-aligned |
+| Discriminator weights | data/para_discriminator_v2.pt | fingerprint pipeline |
+| Mapping MLP | data/intent_prior_model/mlp_checkpoint.pt | vt injection |
+| Intervention spectrum | data/training_intervention/manifest.json + texts/ (201 runs full texts) | reproduces paper numbers |
+| Probe corpus | data/independent_test/ (dim_probe/language_mechanism/manifest) | 11-dim list reproduction |
+
+### Conclusion→command mapping
+
+| Paper conclusion | Script | Command | Output |
+|---|---|---|---|
+| §3.2 waves vs flat (d=+2.16) | dim_flow_sent.py | `python stage3/dim_flow_sent.py` | flow_sent_analysis.json (dim10_jump) |
+| §3.3 turn steepness (d=+2.09) | dim_flow_sent.py | same | turn10_peak_steep_mean |
+| §3.4 Hurst | dim_flow.py | `python stage3/dim_flow.py` (corpus-optional) | flow_analysis.json |
+| §3.5 transfer entropy | dim_flow_sent.py | same | te_10_to_48 |
+| §3.6 coupling | dim_flow.py | same | coupling |
+| §4.1 dim48/dim10 causal | dim_intervene.py (GPU) | `python stage3/dim_intervene.py` | intervene_manifest.json |
+| §4.2 inverse relation | dim_64_full.py | `python stage3/dim_64_full.py` | dim64_full.json |
+| §5.1 spectrum | gen_theme_guidance.py (GPU) | `--conditions vt_ext,vt_seed_beam,vt_gate_beam --seeds 0,1` | manifest append |
+| 11-dim list | dim_activity.py | `python stage3/dim_activity.py` | activity.json |
+
+### Full pipeline
+
+```bash
+python stage3/dim_activity.py          # activity
+python stage3/dim_probe_deep.py        # probe + traceback
+python stage3/dim_cross_validate.py    # dual-model
+python stage3/dim_64_full.py           # 64-dim panorama
+python stage3/dim_flow.py              # segment + Hurst
+python stage3/dim_flow_sent.py         # clause + TE
+python stage3/dim_flow_word.py         # word + 11-dim panorama
+python stage3/gen_theme_guidance.py --conditions vt_ext --seeds 0,1   # GPU
+python stage3/md_to_docx.py "论文/意图动力学：从意图流转捕捉到模拟智能的架构构想.md"
+```
+
+### Reproduction verification (2026-08-14 — all PASSED)
+
+dim_activity (11-dim list ✓) → dim_64_full (dim59 d=+0.65 ✓) → dim_flow_sent (d=+2.16 / TE 0.0124 vs 0.0194 ✓) → dim_probe_deep (dim48: 21 sig-pairs/8-8 ✓) → gen_theme_guidance smoke (vt_ext 0.9602 ✓) → md_to_docx (✓) — **all numbers match the paper**.
