@@ -213,7 +213,18 @@ dim48/dim10 perturbations change reference/topic organization of generated text 
 
 **Layer 1: Root Intent Field** — root intent = fixed vector R in the 64-dim (or 11-dim core subspace) space — the gravity-field minimum — close = comfortable, far = high potential — **correction triggered only when potential exceeds a threshold** (Law 1) — verified components: document-core/external-core anchors (document-core d 2.04–2.09; vt_ext 49% / vt_oracle 55% — the field's anchor is verified).
 
-**Layer 2: Intent Trajectory Planner** — learns human fluctuation patterns (§3.2–3.6 target distributions: allowed fluctuation range / target jump / target coupling / target Hurst) — input: current intent state + history → output: next-clause target-state distribution — **wide band for positive dims, narrow for negative dims** (Law 3) — verified components: Kalman gating (predict-assign — r=0.389 — intent state predictable) — fluctuation-pattern learning is the core to be implemented.
+**Layer 2: Intent Trajectory Planner** — learns human fluctuation patterns (§3.2–3.6 target distributions: allowed fluctuation range / target jump / target coupling / target Hurst) — input: current intent state + history → output: next-clause target-state distribution — **wide band for positive dims, narrow for negative dims** (Law 3) — verified components: Kalman gating (predict-assign — r=0.389 — intent state predictable). **Fluctuation-pattern learning is COMPLETE (v0.77-1 — `stage3/engine_planner_bands.py` — fully offline)**:
+
+| Target distribution (per-document — human p25–p75 band) | Value |
+|---|---|
+| Jump dim10 | 0.296–0.324 (AI 0.257 — strong constraint) |
+| Turn steepness/depth dim10 | 0.445–0.486 / 0.446–0.494 (AI 0.388) |
+| Jump dim48 / turn steepness dim48 | 0.353–0.382 / 0.523–0.572 |
+| Hurst dim10 (long-range memory) | 0.594–0.696 (AI 0.568) |
+| Coupling 10×48 | 0.468–0.558 (AI 0.432) |
+| TE 10→48 (free flow — lower-bound constraint) | ≤0.019 (AI 0.023 mechanical) |
+
+**Wave-band polarity verification (11/11 confirmed)**: human-organization group (dim10/11/34/46/48/59) segment-trajectory width ratios (human std / AI std) all **>1** — [1.41, 1.11, 1.23, 1.20, 1.05, 1.15] — median **1.17**; AI-feature group (dim22/26/43/52/5) all **<1** — [0.73, 0.60, 0.61, 0.55, 0.74] — median **0.61** (humans stay in a stable narrow band on these dims — swinging is AI's mechanical behavior). Overall 64 dims: 31/64 humans wider (directional, n.s.) — but the 11 target dims are 100% polarity-consistent — **wave-band polarity is a real dimension property**. → Planner target: positive dims widen to ≈1.17× AI level; negative dims tighten to ≈0.61× AI level.
 
 **Layer 3: Intent Steering Executor** — target state → real-time LLM sampling guidance — options: magnetic guidance (logits bias) / intent mask (token subset) / virtual-token injection — **gating: enabled only on coupling drop / abnormal jump / trajectory deviation** (Law 1 — "when to inject" > "what to inject") — verified components: vt channel (injection 117%/103% — +16 points over logits), Kalman gating (no-beam 46%).
 
@@ -230,7 +241,7 @@ dim48/dim10 perturbations change reference/topic organization of generated text 
 
 ### 6.4 Implementation Path (from verified components to end-to-end)
 
-1. **Fluctuation-pattern learning** (planner core — to be implemented): learn target jump/turn-steepness/coupling distributions for dim10/dim48 (and all 64) from human corpora — as generation target states
+1. **Fluctuation-pattern learning** (planner core — ✅ COMPLETE v0.77-1): five-metric target distributions (jump/turn/Hurst/TE/coupling — human p25–p75 bands) + 64-dim wave-band polarity verification (positive 1.17× wide / negative 0.61× narrow — 11/11) — output `planner_targets.json` — see §6.2 target table
 2. **Field end-to-end**: root intent (document/external core) → deviation detection (trajectory–field distance, clause-level) → above-threshold triggers vt-channel pull-back — "free fluctuation + field pull-back" generation loop
 3. **Polarity steering**: positive dims encourage waves (wide target band); negative dims suppress swinging (narrow band) — implemented via the dim_perturb channel
 4. **Training-time**: dim48/dim10 as loss terms (φ jointly optimized with LM — eliminating OOD injection)
