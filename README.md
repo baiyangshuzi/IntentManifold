@@ -89,6 +89,21 @@ python stage3/md_to_docx.py "论文/意图动力学：从意图流转捕捉到�
 - **需要本地素材（未纳入仓库——版权/体积）**：bilingual 中文语料（龙族/诛仙/天行健连续段——版权文本）、AI 生成语料、天行健全书与 archives 仿写文本——**对应的指纹矩阵与全部分析结果已内置**——如需重新生成指纹需自行准备素材（脚本 `stage3/dim_build_matrix.py` 的语料路径可配置）
 - **模型权重**：判别器 para_discriminator_v2.pt 内置（597KB）——bge/Qwen 模型从 HuggingFace 缓存（需自行下载——HF_HUB_OFFLINE=0 首次）
 
+## 六-b、复现验证记录（2026-08-14——全部通过）
+
+| 验证项 | 脚本 | 结果 |
+|---|---|---|
+| 维度活性 | dim_activity.py | ✓（11 维清单复现——目标全在 remaining 22） |
+| 64 维全景 | dim_64_full.py | ✓（dim59 d=+0.65 等——与论文一致） |
+| 句元级流转+TE | dim_flow_sent.py | ✓（跳跃 d=+2.16/TE 0.0124 vs 0.0194——与论文一致） |
+| 探针+上层追溯 | dim_probe_deep.py | ✓（dim48 追溯 21 显著对/8-8——与论文一致） |
+| 生成实验调用链 | gen_theme_guidance（vt_ext 冒烟） | ✓（窗口 0.9602——与论文一致——GPU+本地模型） |
+| 论文 docx 转换 | md_to_docx.py | ✓ |
+
+**可复现性工程修复**（v0.75-3）：①13 个脚本 BASE 改为可配置（环境变量 `INTENT_DYNAMICS_BASE`——默认脚本上级目录——仓库/原项目通用）；②补齐依赖脚本（clause_structure/train_para_discriminator_nn/build_global_core_longdoc）与依赖数据（independent_test 探针 5 json/intent_prior_model/mlp_checkpoint.pt/判别器权重 data/ 根）；③dim_flow 素材缺失容错（无 archives/天行健素材时跳过同题材补算）；④修复 build_ci_fdr/build_dim_probe 缺失 `import os`。
+
+**复现环境要求**：离线分析纯 CPU（几分钟）；生成实验需 GPU（MX570 2GB 实测）+ 本地模型缓存（Qwen2.5-0.5B/bge-small-zh——HF_HUB_OFFLINE=1）；素材依赖：bilingual 语料（版权——未内置——指纹矩阵已内置可直接分析）。
+
 ## 七、论文
 
 - **《意图动力学：从意图流转捕捉到模拟智能的架构构想》**——当前主线：测量→解剖→干预→构想——含「机器意图动力学」定位声明——推荐先读

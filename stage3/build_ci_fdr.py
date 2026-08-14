@@ -7,11 +7,12 @@ BH-FDR 校正——全部 p 值——明确区分"校正后仍显著/不再显�
 产出：data/independent_test/ci_fdr.json
 """
 import sys, json, math
+import os
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 from pathlib import Path
 import numpy as np
 
-BASE = Path('C:/Users/bai/Desktop/小说系统')
+BASE = Path(os.environ.get('INTENT_DYNAMICS_BASE', Path(__file__).resolve().parent.parent))
 OUT = BASE / 'data' / 'independent_test'
 
 

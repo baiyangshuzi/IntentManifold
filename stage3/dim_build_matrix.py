@@ -13,7 +13,7 @@ from pathlib import Path
 import numpy as np
 import torch
 
-BASE = Path('C:/Users/bai/Desktop/小说系统')
+BASE = Path(os.environ.get('INTENT_DYNAMICS_BASE', Path(__file__).resolve().parent.parent))
 OUT = BASE / 'data' / 'dim_analysis'
 OUT.mkdir(parents=True, exist_ok=True)
 sys.path.insert(0, str(BASE / 'stage3'))

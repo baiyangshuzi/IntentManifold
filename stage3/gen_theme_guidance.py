@@ -14,7 +14,7 @@ sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 from pathlib import Path
 import numpy as np
 
-BASE = Path('C:/Users/bai/Desktop/小说系统')
+BASE = Path(os.environ.get('INTENT_DYNAMICS_BASE', Path(__file__).resolve().parent.parent))
 OUT = BASE / 'data' / 'training_intervention'
 (OUT / 'texts').mkdir(parents=True, exist_ok=True)
 sys.path.insert(0, str(BASE / 'stage3'))

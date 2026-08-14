@@ -1,0 +1,1599 @@
+{
+ "rows": [
+  {
+   "exp": "严格配对",
+   "domain": "L1",
+   "dim": "disc",
+   "human": 0.019,
+   "ai": 0.18,
+   "d": -2.684,
+   "ci95": [
+    -4.32,
+    -1.94
+   ],
+   "q": 0.0
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L1",
+   "dim": "sent_proj",
+   "human": 0.964,
+   "ai": 0.837,
+   "d": 3.619,
+   "ci95": [
+    2.62,
+    5.74
+   ],
+   "q": 0.0
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L1",
+   "dim": "traj",
+   "human": 0.033,
+   "ai": 0.13,
+   "d": -2.419,
+   "ci95": [
+    -4.17,
+    -1.51
+   ],
+   "q": 0.0
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L1",
+   "dim": "l7_adj",
+   "human": 0.919,
+   "ai": 0.677,
+   "d": 3.73,
+   "ci95": [
+    2.58,
+    6.28
+   ],
+   "q": 0.0
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L1",
+   "dim": "word_proj",
+   "human": 0.876,
+   "ai": 0.782,
+   "d": 2.67,
+   "ci95": [
+    2.02,
+    3.75
+   ],
+   "q": 0.0
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L1",
+   "dim": "word_adj",
+   "human": 0.799,
+   "ai": 0.738,
+   "d": 1.185,
+   "ci95": [
+    0.61,
+    1.89
+   ],
+   "q": 0.0061
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L1",
+   "dim": "entropy",
+   "human": 3.712,
+   "ai": 3.734,
+   "d": -0.086,
+   "ci95": [
+    -0.69,
+    0.54
+   ],
+   "q": 0.8277
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L2",
+   "dim": "disc",
+   "human": 0.051,
+   "ai": 0.05,
+   "d": 0.032,
+   "ci95": [
+    -0.76,
+    1.34
+   ],
+   "q": 1.0084
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L2",
+   "dim": "sent_proj",
+   "human": 0.918,
+   "ai": 0.923,
+   "d": -0.116,
+   "ci95": [
+    -1.33,
+    0.74
+   ],
+   "q": 0.9839
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L2",
+   "dim": "traj",
+   "human": 0.081,
+   "ai": 0.081,
+   "d": -0.011,
+   "ci95": [
+    -0.88,
+    1.31
+   ],
+   "q": 1.0159
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L2",
+   "dim": "l7_adj",
+   "human": 0.839,
+   "ai": 0.831,
+   "d": 0.085,
+   "ci95": [
+    -1.05,
+    0.91
+   ],
+   "q": 1.0056
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L2",
+   "dim": "word_proj",
+   "human": 0.847,
+   "ai": 0.826,
+   "d": 0.401,
+   "ci95": [
+    -0.54,
+    1.31
+   ],
+   "q": 0.4173
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L2",
+   "dim": "word_adj",
+   "human": 0.789,
+   "ai": 0.765,
+   "d": 0.438,
+   "ci95": [
+    -0.45,
+    1.4
+   ],
+   "q": 0.3962
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L2",
+   "dim": "entropy",
+   "human": 4.068,
+   "ai": 4.024,
+   "d": 0.248,
+   "ci95": [
+    -0.68,
+    1.17
+   ],
+   "q": 0.8471
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L3",
+   "dim": "disc",
+   "human": 0.062,
+   "ai": 0.179,
+   "d": -1.239,
+   "ci95": [
+    -2.51,
+    -0.48
+   ],
+   "q": 0.0814
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L3",
+   "dim": "sent_proj",
+   "human": 0.908,
+   "ai": 0.822,
+   "d": 1.562,
+   "ci95": [
+    0.75,
+    2.93
+   ],
+   "q": 0.0595
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L3",
+   "dim": "traj",
+   "human": 0.066,
+   "ai": 0.122,
+   "d": -1.348,
+   "ci95": [
+    -2.63,
+    -0.52
+   ],
+   "q": 0.0152
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L3",
+   "dim": "l7_adj",
+   "human": 0.811,
+   "ai": 0.677,
+   "d": 1.378,
+   "ci95": [
+    0.51,
+    2.81
+   ],
+   "q": 0.0695
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L3",
+   "dim": "word_proj",
+   "human": 0.858,
+   "ai": 0.776,
+   "d": 1.284,
+   "ci95": [
+    0.47,
+    2.42
+   ],
+   "q": 0.0727
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L3",
+   "dim": "word_adj",
+   "human": 0.813,
+   "ai": 0.726,
+   "d": 1.174,
+   "ci95": [
+    0.36,
+    2.5
+   ],
+   "q": 0.1244
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L3",
+   "dim": "entropy",
+   "human": 3.407,
+   "ai": 3.763,
+   "d": -1.267,
+   "ci95": [
+    -2.75,
+    -0.42
+   ],
+   "q": 0.0659
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L4",
+   "dim": "disc",
+   "human": 0.204,
+   "ai": 0.202,
+   "d": 0.017,
+   "ci95": [
+    -0.82,
+    1.09
+   ],
+   "q": 1.0126
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L4",
+   "dim": "sent_proj",
+   "human": 0.823,
+   "ai": 0.829,
+   "d": -0.137,
+   "ci95": [
+    -1.13,
+    0.71
+   ],
+   "q": 0.8392
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L4",
+   "dim": "traj",
+   "human": 0.142,
+   "ai": 0.121,
+   "d": 0.534,
+   "ci95": [
+    -0.44,
+    1.46
+   ],
+   "q": 0.3866
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L4",
+   "dim": "l7_adj",
+   "human": 0.644,
+   "ai": 0.668,
+   "d": -0.212,
+   "ci95": [
+    -1.34,
+    0.63
+   ],
+   "q": 0.7665
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L4",
+   "dim": "word_proj",
+   "human": 0.773,
+   "ai": 0.762,
+   "d": 0.185,
+   "ci95": [
+    -0.64,
+    1.23
+   ],
+   "q": 0.5004
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L4",
+   "dim": "word_adj",
+   "human": 0.738,
+   "ai": 0.706,
+   "d": 0.52,
+   "ci95": [
+    -0.39,
+    1.49
+   ],
+   "q": 0.0624
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L4",
+   "dim": "entropy",
+   "human": 3.302,
+   "ai": 3.344,
+   "d": -0.239,
+   "ci95": [
+    -1.31,
+    0.71
+   ],
+   "q": 0.4112
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L5",
+   "dim": "disc",
+   "human": 0.411,
+   "ai": 0.35,
+   "d": 0.938,
+   "ci95": [
+    0.17,
+    2.02
+   ],
+   "q": 0.0205
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L5",
+   "dim": "sent_proj",
+   "human": 0.752,
+   "ai": 0.759,
+   "d": -0.495,
+   "ci95": [
+    -1.4,
+    0.35
+   ],
+   "q": 0.0672
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L5",
+   "dim": "traj",
+   "human": 0.098,
+   "ai": 0.13,
+   "d": -1.226,
+   "ci95": [
+    -2.29,
+    -0.43
+   ],
+   "q": 0.0216
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L5",
+   "dim": "l7_adj",
+   "human": 0.564,
+   "ai": 0.564,
+   "d": -0.002,
+   "ci95": [
+    -1.02,
+    0.89
+   ],
+   "q": 1.024
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L5",
+   "dim": "word_proj",
+   "human": 0.66,
+   "ai": 0.685,
+   "d": -0.405,
+   "ci95": [
+    -1.57,
+    0.5
+   ],
+   "q": 0.0772
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L5",
+   "dim": "word_adj",
+   "human": 0.655,
+   "ai": 0.678,
+   "d": -0.384,
+   "ci95": [
+    -1.54,
+    0.44
+   ],
+   "q": 0.0842
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L5",
+   "dim": "entropy",
+   "human": 4.892,
+   "ai": 5.129,
+   "d": -0.759,
+   "ci95": [
+    -1.95,
+    0.08
+   ],
+   "q": 0.0
+  },
+  {
+   "exp": "多段连续",
+   "domain": "commentary",
+   "dim": "disc",
+   "human": 0.043,
+   "ai": 0.039,
+   "d": 0.14,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "commentary",
+   "dim": "sent_proj",
+   "human": 0.926,
+   "ai": 0.934,
+   "d": -0.28,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "commentary",
+   "dim": "traj",
+   "human": 0.069,
+   "ai": 0.061,
+   "d": 0.24,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "commentary",
+   "dim": "l7_adj",
+   "human": 0.849,
+   "ai": 0.859,
+   "d": -0.18,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "commentary",
+   "dim": "word_proj",
+   "human": 0.848,
+   "ai": 0.85,
+   "d": -0.05,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "commentary",
+   "dim": "word_adj",
+   "human": 0.783,
+   "ai": 0.781,
+   "d": 0.04,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "commentary",
+   "dim": "entropy",
+   "human": 3.95,
+   "ai": 3.859,
+   "d": 0.71,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "commentary",
+   "dim": "seg_mean",
+   "human": 0.926,
+   "ai": 0.934,
+   "d": -0.28,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "commentary",
+   "dim": "seg_inner_std",
+   "human": 0.071,
+   "ai": 0.062,
+   "d": 0.3,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "commentary",
+   "dim": "seg_adj_diff",
+   "human": 0.045,
+   "ai": 0.033,
+   "d": 0.56,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "commentary",
+   "dim": "seg_traj",
+   "human": 0.031,
+   "ai": 0.027,
+   "d": 0.31,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen",
+   "dim": "disc",
+   "human": 0.262,
+   "ai": 0.251,
+   "d": 0.13,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen",
+   "dim": "sent_proj",
+   "human": 0.794,
+   "ai": 0.796,
+   "d": -0.04,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen",
+   "dim": "traj",
+   "human": 0.143,
+   "ai": 0.154,
+   "d": -0.37,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen",
+   "dim": "l7_adj",
+   "human": 0.629,
+   "ai": 0.61,
+   "d": 0.23,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen",
+   "dim": "word_proj",
+   "human": 0.756,
+   "ai": 0.757,
+   "d": -0.02,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen",
+   "dim": "word_adj",
+   "human": 0.698,
+   "ai": 0.712,
+   "d": -0.3,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen",
+   "dim": "entropy",
+   "human": 3.92,
+   "ai": 3.597,
+   "d": 2.44,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen",
+   "dim": "seg_mean",
+   "human": 0.794,
+   "ai": 0.796,
+   "d": -0.04,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen",
+   "dim": "seg_inner_std",
+   "human": 0.149,
+   "ai": 0.159,
+   "d": -0.5,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen",
+   "dim": "seg_adj_diff",
+   "human": 0.05,
+   "ai": 0.041,
+   "d": 0.31,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen",
+   "dim": "seg_traj",
+   "human": 0.04,
+   "ai": 0.033,
+   "d": 0.3,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen_free",
+   "dim": "disc",
+   "human": 0.262,
+   "ai": 0.347,
+   "d": -1.55,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen_free",
+   "dim": "sent_proj",
+   "human": 0.794,
+   "ai": 0.762,
+   "d": 1.16,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen_free",
+   "dim": "traj",
+   "human": 0.143,
+   "ai": 0.125,
+   "d": 0.83,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen_free",
+   "dim": "l7_adj",
+   "human": 0.629,
+   "ai": 0.565,
+   "d": 1.12,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen_free",
+   "dim": "word_proj",
+   "human": 0.756,
+   "ai": 0.697,
+   "d": 1.77,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen_free",
+   "dim": "word_adj",
+   "human": 0.698,
+   "ai": 0.663,
+   "d": 1.09,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen_free",
+   "dim": "entropy",
+   "human": 3.92,
+   "ai": 3.629,
+   "d": 1.67,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen_free",
+   "dim": "seg_mean",
+   "human": 0.794,
+   "ai": 0.762,
+   "d": 1.16,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen_free",
+   "dim": "seg_inner_std",
+   "human": 0.149,
+   "ai": 0.127,
+   "d": 1.31,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen_free",
+   "dim": "seg_adj_diff",
+   "human": 0.05,
+   "ai": 0.015,
+   "d": 1.31,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "guwen_free",
+   "dim": "seg_traj",
+   "human": 0.04,
+   "ai": 0.013,
+   "d": 1.35,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "imitation",
+   "dim": "disc",
+   "human": 0.103,
+   "ai": 0.241,
+   "d": -1.96,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "imitation",
+   "dim": "sent_proj",
+   "human": 0.901,
+   "ai": 0.808,
+   "d": 2.2,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "imitation",
+   "dim": "traj",
+   "human": 0.079,
+   "ai": 0.132,
+   "d": -1.7,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "imitation",
+   "dim": "l7_adj",
+   "human": 0.796,
+   "ai": 0.638,
+   "d": 1.97,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "imitation",
+   "dim": "word_proj",
+   "human": 0.839,
+   "ai": 0.777,
+   "d": 1.31,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "imitation",
+   "dim": "word_adj",
+   "human": 0.777,
+   "ai": 0.738,
+   "d": 0.72,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "imitation",
+   "dim": "entropy",
+   "human": 3.55,
+   "ai": 3.656,
+   "d": -0.75,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "imitation",
+   "dim": "seg_mean",
+   "human": 0.901,
+   "ai": 0.808,
+   "d": 2.2,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "imitation",
+   "dim": "seg_inner_std",
+   "human": 0.091,
+   "ai": 0.133,
+   "d": -1.19,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "imitation",
+   "dim": "seg_adj_diff",
+   "human": 0.042,
+   "ai": 0.048,
+   "d": -0.2,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "imitation",
+   "dim": "seg_traj",
+   "human": 0.043,
+   "ai": 0.033,
+   "d": 0.5,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "longzu",
+   "dim": "disc",
+   "human": 0.037,
+   "ai": 0.286,
+   "d": -4.77,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "longzu",
+   "dim": "sent_proj",
+   "human": 0.946,
+   "ai": 0.788,
+   "d": 5.45,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "longzu",
+   "dim": "traj",
+   "human": 0.046,
+   "ai": 0.11,
+   "d": -3.93,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "longzu",
+   "dim": "l7_adj",
+   "human": 0.886,
+   "ai": 0.607,
+   "d": 5.3,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "longzu",
+   "dim": "word_proj",
+   "human": 0.885,
+   "ai": 0.741,
+   "d": 4.4,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "longzu",
+   "dim": "word_adj",
+   "human": 0.824,
+   "ai": 0.725,
+   "d": 2.83,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "longzu",
+   "dim": "entropy",
+   "human": 3.514,
+   "ai": 3.642,
+   "d": -0.81,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "longzu",
+   "dim": "seg_mean",
+   "human": 0.946,
+   "ai": 0.788,
+   "d": 5.45,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "longzu",
+   "dim": "seg_inner_std",
+   "human": 0.049,
+   "ai": 0.116,
+   "d": -4.0,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "longzu",
+   "dim": "seg_adj_diff",
+   "human": 0.031,
+   "ai": 0.044,
+   "d": -0.48,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "longzu",
+   "dim": "seg_traj",
+   "human": 0.032,
+   "ai": 0.03,
+   "d": 0.11,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "tianxingjian",
+   "dim": "disc",
+   "human": 0.168,
+   "ai": 0.271,
+   "d": -2.31,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "tianxingjian",
+   "dim": "sent_proj",
+   "human": 0.856,
+   "ai": 0.815,
+   "d": 2.74,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "tianxingjian",
+   "dim": "traj",
+   "human": 0.113,
+   "ai": 0.104,
+   "d": 0.32,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "tianxingjian",
+   "dim": "l7_adj",
+   "human": 0.707,
+   "ai": 0.625,
+   "d": 2.75,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "tianxingjian",
+   "dim": "word_proj",
+   "human": 0.793,
+   "ai": 0.757,
+   "d": 1.45,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "tianxingjian",
+   "dim": "word_adj",
+   "human": 0.729,
+   "ai": 0.721,
+   "d": 0.24,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "tianxingjian",
+   "dim": "entropy",
+   "human": 3.586,
+   "ai": 3.435,
+   "d": 0.67,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "tianxingjian",
+   "dim": "seg_mean",
+   "human": 0.856,
+   "ai": 0.815,
+   "d": 2.74,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "tianxingjian",
+   "dim": "seg_inner_std",
+   "human": 0.133,
+   "ai": 0.1,
+   "d": 1.45,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "tianxingjian",
+   "dim": "seg_adj_diff",
+   "human": 0.054,
+   "ai": 0.053,
+   "d": 0.03,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "多段连续",
+   "domain": "tianxingjian",
+   "dim": "seg_traj",
+   "human": 0.054,
+   "ai": 0.041,
+   "d": 0.74,
+   "ci95": null,
+   "q": null
+  },
+  {
+   "exp": "独立集",
+   "domain": "baihua",
+   "dim": "disc",
+   "human": 0.155,
+   "ai": 0.221,
+   "d": -0.39,
+   "ci95": [
+    -1.65,
+    0.19
+   ],
+   "q": 0.3976
+  },
+  {
+   "exp": "独立集",
+   "domain": "baihua",
+   "dim": "sent_proj",
+   "human": 0.89,
+   "ai": 0.811,
+   "d": 1.33,
+   "ci95": [
+    0.77,
+    2.02
+   ],
+   "q": 0.0014
+  },
+  {
+   "exp": "独立集",
+   "domain": "baihua",
+   "dim": "traj",
+   "human": 0.094,
+   "ai": 0.123,
+   "d": -0.5,
+   "ci95": [
+    -1.25,
+    0.08
+   ],
+   "q": 0.2362
+  },
+  {
+   "exp": "独立集",
+   "domain": "baihua",
+   "dim": "l7_adj",
+   "human": 0.772,
+   "ai": 0.648,
+   "d": 1.01,
+   "ci95": [
+    0.44,
+    1.76
+   ],
+   "q": 0.0152
+  },
+  {
+   "exp": "独立集",
+   "domain": "baihua",
+   "dim": "word_proj",
+   "human": 0.786,
+   "ai": 0.765,
+   "d": 0.17,
+   "ci95": [
+    -0.36,
+    1.66
+   ],
+   "q": 0.8401
+  },
+  {
+   "exp": "独立集",
+   "domain": "baihua",
+   "dim": "word_adj",
+   "human": 0.777,
+   "ai": 0.717,
+   "d": 0.91,
+   "ci95": [
+    0.33,
+    1.65
+   ],
+   "q": 0.0253
+  },
+  {
+   "exp": "独立集",
+   "domain": "baihua",
+   "dim": "entropy",
+   "human": 3.491,
+   "ai": 3.478,
+   "d": 0.05,
+   "ci95": [
+    -0.55,
+    0.79
+   ],
+   "q": 1.0047
+  },
+  {
+   "exp": "独立集",
+   "domain": "shiping",
+   "dim": "disc",
+   "human": 0.044,
+   "ai": 0.04,
+   "d": 0.08,
+   "ci95": [
+    -1.03,
+    0.8
+   ],
+   "q": 0.9906
+  },
+  {
+   "exp": "独立集",
+   "domain": "shiping",
+   "dim": "sent_proj",
+   "human": 0.931,
+   "ai": 0.931,
+   "d": 0.01,
+   "ci95": [
+    -0.8,
+    1.06
+   ],
+   "q": 1.0348
+  },
+  {
+   "exp": "独立集",
+   "domain": "shiping",
+   "dim": "traj",
+   "human": 0.051,
+   "ai": 0.056,
+   "d": -0.14,
+   "ci95": [
+    -1.14,
+    0.74
+   ],
+   "q": 0.9678
+  },
+  {
+   "exp": "独立集",
+   "domain": "shiping",
+   "dim": "l7_adj",
+   "human": 0.857,
+   "ai": 0.864,
+   "d": -0.08,
+   "ci95": [
+    -0.89,
+    0.87
+   ],
+   "q": 0.9895
+  },
+  {
+   "exp": "独立集",
+   "domain": "shiping",
+   "dim": "word_proj",
+   "human": 0.857,
+   "ai": 0.862,
+   "d": -0.11,
+   "ci95": [
+    -0.98,
+    0.77
+   ],
+   "q": 0.9816
+  },
+  {
+   "exp": "独立集",
+   "domain": "shiping",
+   "dim": "word_adj",
+   "human": 0.797,
+   "ai": 0.792,
+   "d": 0.11,
+   "ci95": [
+    -0.78,
+    0.99
+   ],
+   "q": 0.9709
+  },
+  {
+   "exp": "独立集",
+   "domain": "shiping",
+   "dim": "entropy",
+   "human": 3.717,
+   "ai": 3.9,
+   "d": -0.77,
+   "ci95": [
+    -1.94,
+    -0.05
+   ],
+   "q": 0.1497
+  }
+ ],
+ "fdr_sig": [
+  {
+   "exp": "严格配对",
+   "domain": "L1",
+   "dim": "disc",
+   "q": 0.0
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L1",
+   "dim": "sent_proj",
+   "q": 0.0
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L1",
+   "dim": "traj",
+   "q": 0.0
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L1",
+   "dim": "l7_adj",
+   "q": 0.0
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L1",
+   "dim": "word_proj",
+   "q": 0.0
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L1",
+   "dim": "word_adj",
+   "q": 0.0061
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L3",
+   "dim": "traj",
+   "q": 0.0152
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L5",
+   "dim": "disc",
+   "q": 0.0205
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L5",
+   "dim": "traj",
+   "q": 0.0216
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L5",
+   "dim": "entropy",
+   "q": 0.0
+  },
+  {
+   "exp": "独立集",
+   "domain": "baihua",
+   "dim": "sent_proj",
+   "q": 0.0014
+  },
+  {
+   "exp": "独立集",
+   "domain": "baihua",
+   "dim": "l7_adj",
+   "q": 0.0152
+  },
+  {
+   "exp": "独立集",
+   "domain": "baihua",
+   "dim": "word_adj",
+   "q": 0.0253
+  }
+ ],
+ "fdr_nonsig": [
+  {
+   "exp": "严格配对",
+   "domain": "L1",
+   "dim": "entropy",
+   "q": 0.8277
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L2",
+   "dim": "disc",
+   "q": 1.0084
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L2",
+   "dim": "sent_proj",
+   "q": 0.9839
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L2",
+   "dim": "traj",
+   "q": 1.0159
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L2",
+   "dim": "l7_adj",
+   "q": 1.0056
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L2",
+   "dim": "word_proj",
+   "q": 0.4173
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L2",
+   "dim": "word_adj",
+   "q": 0.3962
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L2",
+   "dim": "entropy",
+   "q": 0.8471
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L3",
+   "dim": "disc",
+   "q": 0.0814
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L3",
+   "dim": "sent_proj",
+   "q": 0.0595
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L3",
+   "dim": "l7_adj",
+   "q": 0.0695
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L3",
+   "dim": "word_proj",
+   "q": 0.0727
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L3",
+   "dim": "word_adj",
+   "q": 0.1244
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L3",
+   "dim": "entropy",
+   "q": 0.0659
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L4",
+   "dim": "disc",
+   "q": 1.0126
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L4",
+   "dim": "sent_proj",
+   "q": 0.8392
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L4",
+   "dim": "traj",
+   "q": 0.3866
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L4",
+   "dim": "l7_adj",
+   "q": 0.7665
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L4",
+   "dim": "word_proj",
+   "q": 0.5004
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L4",
+   "dim": "word_adj",
+   "q": 0.0624
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L4",
+   "dim": "entropy",
+   "q": 0.4112
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L5",
+   "dim": "sent_proj",
+   "q": 0.0672
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L5",
+   "dim": "l7_adj",
+   "q": 1.024
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L5",
+   "dim": "word_proj",
+   "q": 0.0772
+  },
+  {
+   "exp": "严格配对",
+   "domain": "L5",
+   "dim": "word_adj",
+   "q": 0.0842
+  },
+  {
+   "exp": "独立集",
+   "domain": "baihua",
+   "dim": "disc",
+   "q": 0.3976
+  },
+  {
+   "exp": "独立集",
+   "domain": "baihua",
+   "dim": "traj",
+   "q": 0.2362
+  },
+  {
+   "exp": "独立集",
+   "domain": "baihua",
+   "dim": "word_proj",
+   "q": 0.8401
+  },
+  {
+   "exp": "独立集",
+   "domain": "baihua",
+   "dim": "entropy",
+   "q": 1.0047
+  },
+  {
+   "exp": "独立集",
+   "domain": "shiping",
+   "dim": "disc",
+   "q": 0.9906
+  },
+  {
+   "exp": "独立集",
+   "domain": "shiping",
+   "dim": "sent_proj",
+   "q": 1.0348
+  },
+  {
+   "exp": "独立集",
+   "domain": "shiping",
+   "dim": "traj",
+   "q": 0.9678
+  },
+  {
+   "exp": "独立集",
+   "domain": "shiping",
+   "dim": "l7_adj",
+   "q": 0.9895
+  },
+  {
+   "exp": "独立集",
+   "domain": "shiping",
+   "dim": "word_proj",
+   "q": 0.9816
+  },
+  {
+   "exp": "独立集",
+   "domain": "shiping",
+   "dim": "word_adj",
+   "q": 0.9709
+  },
+  {
+   "exp": "独立集",
+   "domain": "shiping",
+   "dim": "entropy",
+   "q": 0.1497
+  }
+ ]
+}

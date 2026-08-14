@@ -14,7 +14,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from scipy import stats as sc
 
-BASE = Path('C:/Users/bai/Desktop/小说系统')
+BASE = Path(os.environ.get('INTENT_DYNAMICS_BASE', Path(__file__).resolve().parent.parent))
 OUT = BASE / 'data' / 'dim_analysis'
 PAPER = Path('C:/Users/bai/Desktop/AB系统论文储备')
 sys.path.insert(0, str(BASE / 'stage3'))

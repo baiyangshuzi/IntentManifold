@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 import torch
 
-BASE = Path('C:/Users/bai/Desktop/小说系统')
+BASE = Path(os.environ.get('INTENT_DYNAMICS_BASE', Path(__file__).resolve().parent.parent))
 BT = BASE / 'data' / 'bilingual_test'
 OUT = BASE / 'data/intent_prior_model'
 sys.path.insert(0, str(BASE / 'stage3'))

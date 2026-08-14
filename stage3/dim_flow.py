@@ -17,7 +17,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from scipy import stats as sc
 
-BASE = Path('C:/Users/bai/Desktop/小说系统')
+BASE = Path(os.environ.get('INTENT_DYNAMICS_BASE', Path(__file__).resolve().parent.parent))
 OUT = BASE / 'data' / 'dim_analysis'
 FIGS = OUT / 'figs'
 FIGS.mkdir(exist_ok=True)
@@ -93,6 +93,9 @@ def compute_extra(enc, disc):
             hu_texts.append(f.read_text(encoding='utf-8', errors='replace'))
     hu_text = '\n'.join(hu_texts)
 
+    if not texts or not hu_texts:
+        print('  素材未内置（novel-project/archives 或 chapters_txj）——跳过同题材补算——主分析不受影响')
+        return {}, np.zeros((0, 64))
     for doc, txt in (('archives_AI', ai_text), ('txj_human_6ch', hu_text)):
         paras = paras_of(txt)
         doc_segs = {}
