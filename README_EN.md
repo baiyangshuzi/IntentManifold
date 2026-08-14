@@ -109,4 +109,4 @@ python stage3/md_to_docx.py "论文/意图动力学：从意图流转捕捉到�
 
 ## VIII. License
 
-MIT (code & data) — corpus copyrights reserved to original authors (not bundled) — Author: Baitao Wang (王柏涛)
+**Apache-2.0** (code — includes patent clause — method-innovation protection) — **Data** (fingerprint matrix/analysis results) licensed with the code under Apache-2.0 — **Corpus copyrights reserved** to original authors (not bundled) — Author: Baitao Wang (王柏涛)
