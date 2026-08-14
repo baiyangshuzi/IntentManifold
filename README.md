@@ -45,7 +45,7 @@
 IntentDynamics/
 ├── README.md               # 本说明文档
 ├── INTERFACE.md            # 接口文档（数据/模型/脚本）
-├── LICENSE                 # MIT
+├── LICENSE                 # Apache-2.0
 ├── 论文/
 │   ├── 意图动力学：从意图流转捕捉到模拟智能的架构构想.md/.docx   # 当前主线（推荐先读）
 │   └── 多层级语义指纹系统：意图保持的测量—干预—边界闭环与意图动力学引擎.md/.docx  # 全量实证档案

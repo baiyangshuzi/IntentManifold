@@ -45,7 +45,7 @@ Spectrum: probability 17-25% → logits 40% → beam 51% → seed+beam **82%** �
 IntentDynamics/
 ├── README.md / README_EN.md      # Documentation (ZH / EN)
 ├── INTERFACE.md                  # Interface spec (data/model/scripts)
-├── LICENSE                       # MIT
+├── LICENSE                       # Apache-2.0
 ├── 论文/ (Papers/)
 │   ├── 意图动力学：从意图流转捕捉到模拟智能的架构构想.md/.docx   # Current mainline (ZH)
 │   ├── Intent-Dynamics-EN.md/.docx                                # English version
