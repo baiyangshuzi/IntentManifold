@@ -14,7 +14,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from scipy import stats as sc
 
-BASE = Path(os.environ.get('INTENT_DYNAMICS_BASE', Path(__file__).resolve().parent.parent))
+BASE = Path('C:/Users/bai/Desktop/小说系统')
 OUT = BASE / 'data' / 'dim_analysis'
 PAPER = Path('C:/Users/bai/Desktop/AB系统论文储备')
 sys.path.insert(0, str(BASE / 'stage3'))
@@ -66,6 +66,15 @@ def turn_points(z):
     return {'n_peaks': len(peaks), 'n_valleys': len(valleys),
             'peak_steep_mean': float(np.mean(peak_steep)) if peak_steep else 0.0,
             'valley_depth_mean': float(np.mean(val_depth)) if val_depth else 0.0}
+
+
+def turn_positions(z):
+    """v0.81 转折点位置外露（跳跃点共现分析用）——返回 {'peaks': [...], 'valleys': [...]}（索引）"""
+    z = np.asarray(z, float)
+    d = np.diff(z)
+    peaks = np.where((d[:-1] > 0) & (d[1:] <= 0))[0] + 1
+    valleys = np.where((d[:-1] < 0) & (d[1:] >= 0))[0] + 1
+    return {'peaks': peaks.tolist(), 'valleys': valleys.tolist()}
 
 
 def main():
