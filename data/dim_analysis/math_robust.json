@@ -1,0 +1,47 @@
+{
+ "methods": {
+  "A_区间映射基准([33,66])": {
+   "true_sil": 0.484,
+   "ph_sil": 0.319,
+   "delta_sil": 0.164,
+   "perm_p": 0.0,
+   "pass": true
+  },
+  "B1_四档([25,50,75])": {
+   "true_sil": 0.502,
+   "ph_sil": 0.212,
+   "delta_sil": 0.29,
+   "perm_p": 0.0,
+   "pass": true
+  },
+  "B2_两档([50])": {
+   "true_sil": 0.69,
+   "ph_sil": 0.409,
+   "delta_sil": 0.281,
+   "perm_p": 0.0,
+   "pass": true
+  },
+  "B3_切点偏移([40,70])": {
+   "true_sil": 0.494,
+   "ph_sil": 0.332,
+   "delta_sil": 0.163,
+   "perm_p": 0.0,
+   "pass": true
+  },
+  "C_归一化小数(vmax=200)": {
+   "true_sil": 0.338,
+   "ph_sil": 0.321,
+   "delta_sil": 0.017,
+   "perm_p": 0.0,
+   "pass": false
+  },
+  "C2_归一化小数(vmax=1000)": {
+   "true_sil": 0.513,
+   "ph_sil": 0.454,
+   "delta_sil": 0.059,
+   "perm_p": 0.0,
+   "pass": false
+  }
+ },
+ "n_pass": 4
+}

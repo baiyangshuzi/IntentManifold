@@ -309,6 +309,24 @@ dim48/dim10 perturbations change reference/topic organization of generated text 
 
 **Binned M-A1 PASS** (sil=0.551>0.25 ∧ Δsil=+0.363>0.10 ∧ permutation significant) — **the user's condition is exactly met: "after digit masking, the true-word four classes still separate AND exceed the placeholder baseline — operator semantics does have independent geometric structure"**. Mechanism: digit-range differences are a strong surface feature (masking the operator-semantics contribution) — bin-mapping strips the surface feature — **the operator semantics' independent separation emerges clearly (sil Δ=+0.363) — minimum threshold passed — the formal "math-logical intent" analysis is worth launching** (real derivation trajectories / higher-math composition need subsequent validation). Methodological value: **digit bin-mapping = the standard fix for removing numeric surface features in symbolic-text classification experiments**; full masking collapses within-class variance (template degeneration — sil=1.0 mathematically forced — bin-mapping preserves within-class diversity).
 
+### 6.6.8 Mainline: F1/F3 beam-selection intervention (v0.85-6 — F1 direction effective — F3 not)
+
+**Task (user mainline)**: add F1 (along-axis propulsion) / F3 (ratio_unit) to beam selection — small intervention comparison (beam5_f1f3 vs beam5 — 6 pairs — score = sent_proj + 0.3·(s_f1+s_f3)).
+
+**Result (honest)**:
+- **F1 direction effective**: along-axis propulsion 1.267 → **1.307 (+3.2% — generated text advances more along the axis)**
+- **sent_proj not degraded** (0.893 → 0.883 — within −0.01 line, marginally)
+- **F3 not effective** (ratio_unit slightly up — candidates positively correlated with F1 or insufficient operating room — **F3 not a beam-scoring feature**)
+- Implementation lessons: short-segment F1 scale shift (0.4–1.1 vs human 1.47 — normalization needs short-text reference); candidate clause-split exception (split_subclauses fix)
+
+**Conclusion**: **F1 usable as a beam-scoring feature (mild — inference-time layer) — F3 has no operating room** — inference-time beam selection is partially saturated at the organizational layer (sent_proj captures most) — F1 fusion gives small increment — **training-time loss (F1 distribution matching) remains the main path for changing the organizational layer**.
+
+### 6.6.9 Math side-line consolidation (v0.85-7 — bin-mapping robust / real texts 1/3 / trajectory data gap)
+
+- **Bin-mapping robustness**: 4 cut/binning variants all PASS (Δsil +0.16~+0.29) — "operator-semantics independent structure" robust under discretization — normalized-decimal FAIL due to vmax under-coverage (multiplication C-range exceeds — design flaw, not counter-evidence)
+- **Real derivation texts**: 1/3 PASS — vertical arithmetic (verb-like operator semantics) has extra structure — application problems/equations differ by digit-combination patterns (placeholder replacement equally separable) — **template-arithmetic PASS does not generalize to real texts — formal math-intent analysis evidence limited**
+- **Trajectory-feature data gap**: single math texts too short (<15 diffs) — jump density/α/ratio_unit incalculable — needs long math-derivation corpus
+
 ### 6.6 Jump Mechanism and Controllable Variables (v0.82 — why AI jumps less)
 
 **Determinism audit**: jump detection is deterministically correct — no segment-boundary confound (80%+ of jumps inside segments), no clause-length bias (ρ≈0), **jump-dominant dims = [11,13,17,36,42,55...] (identical human/AI — overlapping the axis top-dims — jumps are along-axis propulsion confirmed)**, model factor small (DS 7.4 vs Qwen 8.1 per 100 clauses — "AI jumps less" is a paradigm-wide property), semantic validation = real content turns (character introduction / dialogue switch / scene transition).

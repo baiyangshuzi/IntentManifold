@@ -66,7 +66,9 @@ CONDITIONS = {'none': {'mode': None, 'beta': 0.0},
               'vt_field': {'mode': 'vt_field', 'alpha': 0.1},                 # 自治环：R=prompt 核心→句元级偏离门控回拉+慢 EWMA 内化
               'vt_field_persist': {'mode': 'vt_field_persist', 'alpha': 0.1},  # 段 1-2 注入 φ(T)——段 3 关闭注入（R 继续更新）——内化检验
               'vt_field_frozen': {'mode': 'vt_field_frozen', 'alpha': 0.1},    # 同 persist 但 R 全程冻结（C-B4 对照——分离内化 vs 注入残存）
-              'vt_field_full': {'mode': 'vt_field_full', 'alpha': 0.1}}        # 段 1-3 全程注入 φ(T)（C-B3 上限基准）
+              'vt_field_full': {'mode': 'vt_field_full', 'alpha': 0.1},        # 段 1-3 全程注入 φ(T)（C-B3 上限基准）
+              # v0.85-6 主线：F1/F3 融合 beam 选优（独立条件——对照 beam5 纯 sent_proj）
+              'beam5_f1f3': {'mode': None, 'beam': 5, 'beam_score': 'f1f3'}}
 
 # 人类锚文档绑定（prompt → human_zh 文档——按序）
 HUMAN_BIND = {'P1': 'ZH-H01', 'P2': 'ZH-H02', 'P3': 'ZH-H03'}
@@ -515,6 +517,7 @@ def run_one(condition, prompt, seed, enc, disc, pseg, model, tok, cfg, device, v
     cfg['union'] = cond.get('union', False)
     cfg['beam'] = cond.get('beam', 0)
     cfg['alpha'] = cond.get('alpha', cfg.get('alpha', 0.1))  # v0.78 势场 EWMA 系数
+    cfg['beam_score'] = cond.get('beam_score', cfg.get('beam_score'))  # v0.85-6 beam 打分模式
     placebo = cond.get('placebo', False)
     # v0.68-4 外部篇核心：生成前一次性提取（意图核心全程稳定——不随生成更新）
     ext_theme = None
@@ -1063,7 +1066,55 @@ def run_one(condition, prompt, seed, enc, disc, pseg, model, tok, cfg, device, v
                                                        ids.shape[1], vocab_cache)
                 d_k = monitor_segment(t_k, enc, disc, pseg, device='cpu')
                 cands.append((t_k, n_k, m_k, t1_k, d_k))
-            best = max(cands, key=lambda c: c[4]['sent_proj'] if c[4] else -1)
+            if cfg.get('beam_score') == 'f1f3':
+                # v0.85-6 主线：F1（沿轴推进量）+ F3（ratio_unit）融合 beam 打分
+                # 目标方向：F1 高（人类 1.47 vs AI 1.30——j_par）——F3 低（人类 0.086 vs AI 0.105）
+                from engine_ratio_validate import ratio_of as _ro
+                from para_dimensions import fingerprint as _fp, norm_rows as _nr
+                D_ref = getattr(cfg, '_D_shared_ref', None)
+                if D_ref is None:
+                    _ax = json.loads((BASE / 'data' / 'dim_analysis' / 'axis_analysis.json').read_text(
+                        encoding='utf-8'))
+                    D_ref = np.asarray(_ax['axis']['D_shared'], float)
+                    cfg['_D_shared_ref'] = D_ref
+                _f1f3_debug = []
+                def _f1f3_score(cand):
+                    if not cand[4]:
+                        return -1
+                    sp = cand[4]['sent_proj']
+                    _f1f3_debug.append(('sp', sp))
+                    txt = cand[0]
+                    # 句元指纹 → 差分 → α/ratio_unit（split_subclauses——修复无句号候选空列表异常）
+                    try:
+                        from subclause_structure import split_subclauses as _ss
+                        sv = enc.encode([s for s in _ss(txt) if len(s) >= 3],
+                                        normalize_embeddings=True, batch_size=16,
+                                        show_progress_bar=False, device='cpu')
+                        SV = torch.from_numpy(sv.astype(np.float32))
+                        with torch.no_grad():
+                            F = _nr(_fp(SV, disc)).detach().cpu().numpy()
+                        if len(F) >= 6:
+                            Df = F[1:] - F[:-1]
+                            alpha = Df @ D_ref
+                            f1 = float(np.mean(np.abs(alpha)))
+                            k = int(len(Df) * 0.6)
+                            f3, _, _ = _ro(Df[k:], D_ref)
+                            # 归一化打分（温和权重 λ=0.05——不主导 sent_proj）
+                            s_f1 = f1 / 3.0
+                            s_f3 = max(0.0, (0.15 - f3) / 0.15)
+                            _f1f3_debug.append(('f', f1, f3, sp + 0.3 * (s_f1 + s_f3)))
+                            return sp + 0.3 * (s_f1 + s_f3)
+                    except Exception:
+                        pass
+                    return sp
+                _dbg = []
+                best = max(cands, key=lambda c: _f1f3_score(c) if (not _dbg or True) else 0)
+                best = max(cands, key=_f1f3_score)
+                print(f'  [f1f3] 候选 {len(cands)}——sp 计数 {sum(1 for x in _f1f3_debug if x[0]=="sp")}——'
+                      f'f 计数 {sum(1 for x in _f1f3_debug if x[0]=="f")}——'
+                      f'样例 {[(round(x[1],3), round(x[2],4)) for x in _f1f3_debug if x[0]=="f"][:5]}')
+            else:
+                best = max(cands, key=lambda c: c[4]['sent_proj'] if c[4] else -1)
             text, n_steps, matched, top1s, dims = best
             beam_info = {'n_cand': len(cands),
                          'cand_sent_proj': [round(c[4]['sent_proj'], 4) if c[4] else None for c in cands],
@@ -1151,6 +1202,8 @@ def main():
                     help='v0.78 势场 EWMA 系数 α（默认用 CONDITIONS 定义值——α 扫描用）')
     ap.add_argument('--temperature', type=float, default=None,
                     help='v0.82 温度扫描（覆盖 cfg 温度——none 条件——跳跃机制验证）')
+    ap.add_argument('--beam-score', default=None,
+                    help='v0.85-6 主线 beam 打分模式（sent_proj 默认/f1f3——F1+F3 融合）')
     a = ap.parse_args()
     THRESHOLD = a.threshold
     seeds_arg = [int(s) for s in a.seeds.split(',')] if a.seeds else None
@@ -1168,6 +1221,9 @@ def main():
     if a.temperature is not None:
         cfg['temperature'] = a.temperature
         print(f'--temperature {a.temperature} ✓')
+    if a.beam_score is not None:
+        cfg['beam_score'] = a.beam_score
+        print(f'--beam-score {a.beam_score} ✓')
     if a.field_alpha is not None:
         for c in ('vt_field', 'vt_field_persist', 'vt_field_frozen', 'vt_field_full'):
             if c in CONDITIONS:

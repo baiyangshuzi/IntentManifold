@@ -1,0 +1,29 @@
+{
+ "应用题": {
+  "true_sil": 0.79,
+  "ph_sil": 0.79,
+  "delta_sil": 0.0,
+  "acc": 1.0,
+  "perm_p": 0.0,
+  "pass": false,
+  "n": 48
+ },
+ "竖式": {
+  "true_sil": 0.872,
+  "ph_sil": 0.697,
+  "delta_sil": 0.174,
+  "acc": 1.0,
+  "perm_p": 0.0,
+  "pass": true,
+  "n": 24
+ },
+ "方程": {
+  "true_sil": 0.931,
+  "ph_sil": 0.922,
+  "delta_sil": 0.009,
+  "acc": 1.0,
+  "perm_p": 0.0,
+  "pass": false,
+  "n": 24
+ }
+}
