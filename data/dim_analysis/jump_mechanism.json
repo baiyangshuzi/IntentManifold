@@ -1,0 +1,78 @@
+{
+ "p90": 2.974,
+ "decoding_strategies": {
+  "none（基线）": {
+   "n": 9,
+   "density": 9.88,
+   "amp": 3.122
+  },
+  "beam5（束搜索）": {
+   "n": 18,
+   "density": 6.04,
+   "amp": 3.011
+  },
+  "logits β1.0": {
+   "n": 18,
+   "density": 9.84,
+   "amp": 2.994
+  },
+  "logits β0.5": {
+   "n": 9,
+   "density": 11.31,
+   "amp": 3.185
+  },
+  "概率层 β0.5": {
+   "n": 9,
+   "density": 10.51,
+   "amp": 2.869
+  },
+  "概率层 β0.3": {
+   "n": 9,
+   "density": 9.47,
+   "amp": 2.79
+  },
+  "种子+beam": {
+   "n": 15,
+   "density": 6.38,
+   "amp": 2.433
+  },
+  "vt 注入系": {
+   "n": 42,
+   "density": 13.51,
+   "amp": 2.947
+  },
+  "外部锚 logits": {
+   "n": 36,
+   "density": 9.26,
+   "amp": 2.797
+  },
+  "PID/Kalman 闭环": {
+   "n": 27,
+   "density": 8.69,
+   "amp": 3.32
+  }
+ },
+ "lang_feat_corr": {
+  "clause_len": {
+   "rho": -0.121,
+   "p": 0.0869
+  },
+  "pron": {
+   "rho": 0.12,
+   "p": 0.0902
+  },
+  "conj": {
+   "rho": -0.062,
+   "p": 0.3837
+  },
+  "punct": {
+   "rho": 0.281,
+   "p": 0.0001
+  },
+  "char_diversity": {
+   "rho": 0.33,
+   "p": 0.0
+  }
+ },
+ "human_ai_lang": {}
+}

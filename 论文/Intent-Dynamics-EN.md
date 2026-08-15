@@ -268,6 +268,17 @@ dim48/dim10 perturbations change reference/topic organization of generated text 
 
 **Jump-event analysis (v0.81 — "dilution hypothesis" NEGATED — jump mechanism confirmed)**: hypothesis "ratio_unit discriminative power is diluted by non-jump clauses and concentrated at jump points" — bilingual event-level test (p90 same threshold, 946/704 jump windows ±2 diffs, 2×2 matrix, cluster CI): **jump-window d=−0.53 vs non-jump-window d=−0.48 — nearly identical — the difference is globally diffuse, not jump-specific (dilution hypothesis fails)**. "Lower ratio_unit at jump windows" is a **mechanism common to both groups** (human d=+5.28 / AI d=+3.89 — AI stronger) — **jumps are axis-aligned pulses common to both** (α-aligned trajectories same shape — center along-axis projection 0.91/0.89, rise-then-fall — dim10+48 dual-p75 co-occurrence 0.54 at jumps vs 0.05 — topic+reference coordinated propulsion — organizational-layer mechanism confirmed). **Human–AI difference lies in jump density and amplitude** (density d=+1.85 — human 12.1 vs AI 7.7 per 100 clauses — clustering gap 5 vs 9), not jump purity — D_excl guardrail passed (cos 0.999 — no circularity).
 
+### 6.6 Jump Mechanism and Controllable Variables (v0.82 — why AI jumps less)
+
+**Determinism audit**: jump detection is deterministically correct — no segment-boundary confound (80%+ of jumps inside segments), no clause-length bias (ρ≈0), **jump-dominant dims = [11,13,17,36,42,55...] (identical human/AI — overlapping the axis top-dims — jumps are along-axis propulsion confirmed)**, model factor small (DS 7.4 vs Qwen 8.1 per 100 clauses — "AI jumps less" is a paradigm-wide property), semantic validation = real content turns (character introduction / dialogue switch / scene transition).
+
+**Controllable variables (mechanism chain closed)**:
+- **beam search: −39% jump density** (9.88→6.04 per 100 clauses — deterministic selection smooths trajectories)
+- **vt virtual-token injection: +37%** (9.88→13.51)
+- **temperature: no significant monotonic effect** (8-run sweep 0.6–1.5 — Spearman p=0.77 — non-monotonic — weak/uncertain)
+- **Language organization**: AI clauses shorter (9.9 vs 12.1), fewer pronouns (weak reference chains), half the connectives — yet **higher lexical diversity (0.972 vs 0.963) with fewer jumps — "static lexical diversity vs dynamic trajectory propulsion" separation** — AI's ornamentation lives in the lexical (static) layer, its propulsion deficit in the trajectory (dynamic) layer — char_diversity×jump-density ρ=+0.33 (p<0.001)
+- **Mechanism**: "AI jumps less" = sampling determinism (beam-class strategies) + weakened language organization (short clauses / weak reference / fewer connectives) → missing trajectory propulsion — controllable variables concentrate in **decoding-strategy layer (inference-time — beam/vt injection) and loss terms (training-time — engine todo 4)**
+
 ## 7. Boundaries and Decoupling (Engine Positioning)
 
 The engine is confined to the **organizational layer** (focus/undulation/cohesion/memory — flow metrics). Three decoupling findings:

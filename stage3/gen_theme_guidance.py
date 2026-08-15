@@ -1149,6 +1149,8 @@ def main():
     ap.add_argument('--seeds', default=None, help='逗号分隔种子（默认 0,1,2——placebo 除外）')
     ap.add_argument('--field-alpha', type=float, default=None,
                     help='v0.78 势场 EWMA 系数 α（默认用 CONDITIONS 定义值——α 扫描用）')
+    ap.add_argument('--temperature', type=float, default=None,
+                    help='v0.82 温度扫描（覆盖 cfg 温度——none 条件——跳跃机制验证）')
     a = ap.parse_args()
     THRESHOLD = a.threshold
     seeds_arg = [int(s) for s in a.seeds.split(',')] if a.seeds else None
@@ -1163,6 +1165,9 @@ def main():
     runs = json.loads(f_man.read_text(encoding='utf-8')) if f_man.exists() else []
     done = {r['run_id'] for r in runs if r.get('status') == 'done'}
 
+    if a.temperature is not None:
+        cfg['temperature'] = a.temperature
+        print(f'--temperature {a.temperature} ✓')
     if a.field_alpha is not None:
         for c in ('vt_field', 'vt_field_persist', 'vt_field_frozen', 'vt_field_full'):
             if c in CONDITIONS:
