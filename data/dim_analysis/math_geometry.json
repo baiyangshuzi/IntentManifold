@@ -57,5 +57,20 @@
   "math_intra": 0.878,
   "math_human_inter": 0.777
  },
- "verdict": "否定"
+ "verdict": "否定",
+ "masked": {
+  "true_sil": 1.0,
+  "true_acc": 1.0,
+  "ph_sil": 0.9999985694885254,
+  "ph_acc": 1.0,
+  "delta_sil": 0.0,
+  "delta_acc": 0.0,
+  "perm": {
+   "true_sil": 1.0,
+   "p": 0.0,
+   "p95": -0.08002450056374073,
+   "mean_null": -0.10035824200883507
+  },
+  "m_a1_masked": false
+ }
 }

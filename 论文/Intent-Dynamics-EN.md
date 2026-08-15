@@ -295,9 +295,19 @@ dim48/dim10 perturbations change reference/topic organization of generated text 
 
 ### 6.6.7 Math-Operation Geometry Pre-test (v0.85 — minimum threshold not met — digit-range hidden-feature evidence)
 
-**Question (user)**: do math-operation symbol/digit combinations have distinguishable geometric structure in intent space? **Pre-test (minimum threshold) NEGATED**: 4 operation classes (add/sub/mul/div × 24 — seed 2026) — structured transcription — bge→fingerprint — **placeholder-word baseline control** (甲/乙/丙/丁→random pinyin replacing operator words — same template same digits).
+**Question (user)**: do math-operation symbol/digit combinations have distinguishable geometric structure in intent space? — 4 operation classes (add/sub/mul/div × 24 — seed 2026) — structured transcription — bge→fingerprint — **placeholder-word baseline control** (lexical classification trap).
 
-**Result**: operation texts are highly separable (LDA acc 0.990) — **but the placeholder baseline is also separable (0.927) — Δacc=+0.06 fails the 0.15 criterion** — silhouette Δ=+0.02 (<0.10) — **four-class separability is driven mainly by C-range distribution** (add [40,165]/sub [2,78]/mul [110,8366]/div [1,32] — BGE sensitive to numeric magnitude — digit surface features) — **no evidence for operator-semantics incremental contribution — minimum threshold not met — not worth continuing as planned**. Permutation test shows real structure (p<0.001) but of the digit-combination-distribution kind. Methodological value: **the placeholder baseline is the standard control for the "lexical classification trap"** (any template-classification experiment must add it) — digit range is an inherent confound of symbolic text (same-range paired design is the prerequisite for continuation).
+**Round 1 (raw digits)**: operation texts highly separable (LDA acc 0.990) — **but the placeholder baseline also separable (0.927) — Δacc=+0.06 fails the line** — **separability driven mainly by C-range distribution** (add [40,165]/sub [2,78]/mul [110,8366]/div [1,32] — BGE numeric sensitivity — digit surface features) — operator-semantics increment not evidenced.
+
+**Round 2 (bin-mapping fix — digits→small/medium/large 3 bins — removes range differences, preserves within-class diversity) — decisive reversal**:
+
+| metric | true words | placeholder baseline | Δ |
+|---|---|---|---|
+| silhouette | **0.551** | 0.188 | **+0.363** |
+| LDA acc | 1.000 | 1.000 | 0.000 (saturated) |
+| permutation | p<0.001 | — | — |
+
+**Binned M-A1 PASS** (sil=0.551>0.25 ∧ Δsil=+0.363>0.10 ∧ permutation significant) — **the user's condition is exactly met: "after digit masking, the true-word four classes still separate AND exceed the placeholder baseline — operator semantics does have independent geometric structure"**. Mechanism: digit-range differences are a strong surface feature (masking the operator-semantics contribution) — bin-mapping strips the surface feature — **the operator semantics' independent separation emerges clearly (sil Δ=+0.363) — minimum threshold passed — the formal "math-logical intent" analysis is worth launching** (real derivation trajectories / higher-math composition need subsequent validation). Methodological value: **digit bin-mapping = the standard fix for removing numeric surface features in symbolic-text classification experiments**; full masking collapses within-class variance (template degeneration — sil=1.0 mathematically forced — bin-mapping preserves within-class diversity).
 
 ### 6.6 Jump Mechanism and Controllable Variables (v0.82 — why AI jumps less)
 

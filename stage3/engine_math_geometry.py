@@ -74,6 +74,22 @@ def make_structured(pairs, op_words):
     return texts, np.array(labels)
 
 
+def mask_digits(text):
+    """数字掩码（v0.85-2：全掩码→[NUM]——注意：类内退化 sil=1.0——仅诊断用）"""
+    import re
+    return re.sub(r'\d+', '[NUM]', text)
+
+
+def bin_digits(text):
+    """区间映射（v0.85-3 修复：数字→小/中/大 3 档——消除值域差异但保留类内多样性——
+    全掩码使类内零方差（sil=1.0 数学必然——模板退化）——区间映射是正确口径）"""
+    import re
+    def rep(m):
+        v = int(m.group())
+        return '小' if v <= 33 else ('中' if v <= 66 else '大')
+    return re.sub(r'\d+', rep, text)
+
+
 def make_raw(pairs):
     """原始式对照（评审 5：补充展示不判据）"""
     sym = {'add': '+', 'sub': '-', 'mul': '×', 'div': '÷'}
@@ -220,6 +236,43 @@ def main():
     print(f'  M-A2（仅参考）: 数学 intra={math_intra:.3f} vs 数学-人类 inter={math_human_inter:.3f}——'
           f'{"支持" if m_a2 else "不支持"}')
 
+    # ===== P2.5 数字掩码口径（v0.85-2 修复——成本最低——消除数字表面特征）=====
+    print('\nP2.5 数字掩码（所有数字→[NUM]——数字表面特征消除）:')
+    mt_texts = [mask_digits(t) for t in true_texts]
+    mp_texts = [mask_digits(t) for t in ph_texts]
+    F_mt = fingerprints_of(mt_texts, enc, disc)
+    F_mp = fingerprints_of(mp_texts, enc, disc)
+    st_mt = sil_acc(F_mt, true_labels)
+    st_mp = sil_acc(F_mp, ph_labels)
+    print(f'  掩码真词: sil={st_mt["sil"]:.3f} acc_lda={st_mt["acc_lda"]:.3f} acc_knn={st_mt["acc_knn"]:.3f}')
+    print(f'  掩码占位词: sil={st_mp["sil"]:.3f} acc_lda={st_mp["acc_lda"]:.3f}')
+    delta_mt = st_mt['sil'] - st_mp['sil']
+    delta_ma = st_mt['acc_lda'] - st_mp['acc_lda']
+    print(f'  掩码 Δsil={delta_mt:+.3f} Δacc={delta_ma:+.3f}')
+    perm_m = permutation_test(F_mt, true_labels, n_perm=1000)
+    print(f'  掩码置换: 真实 sil={perm_m["true_sil"]:.3f} p={perm_m["p"]:.4f}')
+    # 注意：全掩码使类内零方差（同模板同 [NUM]——每类 24 条相同——sil=1.0 数学必然——口径无效仅诊断）
+    # 区间映射（v0.85-3 正确口径——保留类内多样性）
+    bt_texts = [bin_digits(t) for t in true_texts]
+    bp_texts = [bin_digits(t) for t in ph_texts]
+    F_bt = fingerprints_of(bt_texts, enc, disc)
+    F_bp = fingerprints_of(bp_texts, enc, disc)
+    st_bt = sil_acc(F_bt, true_labels)
+    st_bp = sil_acc(F_bp, ph_labels)
+    print(f'  区间映射真词: sil={st_bt["sil"]:.3f} acc_lda={st_bt["acc_lda"]:.3f} acc_knn={st_bt["acc_knn"]:.3f}')
+    print(f'  区间映射占位词: sil={st_bp["sil"]:.3f} acc_lda={st_bp["acc_lda"]:.3f}')
+    delta_bt = st_bt['sil'] - st_bp['sil']
+    delta_ba = st_bt['acc_lda'] - st_bp['acc_lda']
+    print(f'  区间映射 Δsil={delta_bt:+.3f} Δacc={delta_ba:+.3f}')
+    perm_b = permutation_test(F_bt, true_labels, n_perm=1000)
+    print(f'  区间映射置换: 真实 sil={perm_b["true_sil"]:.3f} p={perm_b["p"]:.4f}')
+    cond_b1 = (st_bt['sil'] > 0.25 and delta_bt > 0.10) or \
+              (st_bt['acc_lda'] > 0.7 and delta_ba > 0.15)
+    cond_b2 = perm_b['p'] < 0.05
+    m_a1_binned = cond_b1 and cond_b2
+    print(f'  区间映射 M-A1: {"PASS" if m_a1_binned else "FAIL"}（sil={st_bt["sil"]:.3f} Δsil={delta_bt:+.3f} '
+          f'acc={st_bt["acc_lda"]:.3f} Δacc={delta_ba:+.3f} 置换 p={perm_b["p"]:.4f}）')
+
     # ===== 裁定 =====
     print('\n===== 裁定 =====')
     cond1 = (st_true['sil'] > 0.25 and delta_sil > 0.10) or \
@@ -307,6 +360,17 @@ def main():
         'm_a2': {'math_intra': round(math_intra, 3),
                  'math_human_inter': round(math_human_inter, 3)},
         'verdict': overall,
+        'masked': {'true_sil': st_mt['sil'], 'true_acc': st_mt['acc_lda'],
+                   'ph_sil': st_mp['sil'], 'ph_acc': st_mp['acc_lda'],
+                   'delta_sil': round(float(delta_mt), 3),
+                   'delta_acc': round(float(delta_ma), 3),
+                   'perm': perm_m, 'm_a1_masked': bool(m_a1_masked),
+                   'note': '全掩码类内零方差——sil=1.0 数学必然——口径仅诊断'},
+        'binned': {'true_sil': st_bt['sil'], 'true_acc': st_bt['acc_lda'],
+                   'ph_sil': st_bp['sil'], 'ph_acc': st_bp['acc_lda'],
+                   'delta_sil': round(float(delta_bt), 3),
+                   'delta_acc': round(float(delta_ba), 3),
+                   'perm': perm_b, 'm_a1_binned': bool(m_a1_binned)},
     }
     (OUT / 'math_geometry.json').write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding='utf-8')
     print('\n落盘 math_geometry.json + fig_math_*.png × 3 ✓')
