@@ -264,6 +264,8 @@ dim48/dim10 perturbations change reference/topic organization of generated text 
 
 **Implication for the engine**: axis D is a shared structure — planner axis-coordinate targets (align_cos/ratio_unit human bands) should target the **organization of propulsion** (concentration/drift direction), not axis existence — "propulsion concentration" is a candidate new discriminative feature (d=−3.18 > jump d=+2.16) — formal inclusion requires independent test-set validation.
 
+**Independent test-set validation (v0.80 — NEGATED — directional evidence retained)**: on the independent test set (32 pairs baihua/shiping × human/ai/qwen three sides — frozen D, no fitting leakage) the ratio_unit effect shrinks to **d=−0.49** (1/6.5 of bilingual −3.18 — paired Wilcoxon p=0.073 marginal) — **not admitted as a formal discriminator** (user criterion d>1.5 unmet). Baihua-domain d=−1.07 (same direction, insufficient strength) + shiping d=+0.07 (officialese convergence — consistent with the shiping seven-dim failure precedent). **Incremental value retained**: low redundancy with sent_proj (pooled 0.049 / within-human 0.595) + intervention-space independence (Δ-corr +0.021 — injection does not alter propulsion concentration). **Axis stable across corpora** (cos |0.99| — discriminator-space inherent structure confirmed). Shrinkage mechanism: independent-set human short texts (5–19 diffs) noise contracting toward the isotropic anchor — direction real, strength insufficient.
+
 ## 7. Boundaries and Decoupling (Engine Positioning)
 
 The engine is confined to the **organizational layer** (focus/undulation/cohesion/memory — flow metrics). Three decoupling findings:

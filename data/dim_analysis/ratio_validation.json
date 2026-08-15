@@ -1,0 +1,195 @@
+{
+ "criteria": {
+  "V-R1": false,
+  "V-R1b": false,
+  "V-R2": true,
+  "V-R3": false,
+  "V-R4": true,
+  "overall": "否定"
+ },
+ "repro_gate": {
+  "bilingual_human": 0.0863,
+  "bilingual_ai": 0.1048,
+  "passed": true
+ },
+ "independent": {
+  "human_mean": 0.1036,
+  "ai_qwen_mean": 0.1159,
+  "d_all": -0.493,
+  "ci_all": [
+   -0.0238,
+   0.0007
+  ],
+  "d_baihua": -1.069,
+  "d_shiping": 0.069,
+  "d_length_matched": -0.51,
+  "paired_ai": {
+   "delta_mean": -0.0123,
+   "wilcoxon_p": 0.0731
+  },
+  "paired_qwen": {
+   "delta_mean": -0.0124,
+   "wilcoxon_p": 0.0692
+  },
+  "excluded_short": [
+   {
+    "doc": "B-02",
+    "n_diffs": 4
+   },
+   {
+    "doc": "B-07",
+    "n_diffs": 1
+   },
+   {
+    "doc": "B-11",
+    "n_diffs": 0
+   },
+   {
+    "doc": "B-14",
+    "n_diffs": 4
+   },
+   {
+    "doc": "B-16",
+    "n_diffs": 0
+   }
+  ]
+ },
+ "intervention": {
+  "n_runs": 200,
+  "spearman_delta": 0.0209,
+  "delta_ratio_mean": -0.0114,
+  "delta_sentproj_mean": 0.0378
+ },
+ "corr": {
+  "pooled": {
+   "disc": {
+    "rho": -0.038,
+    "p": 0.7227,
+    "n": 91
+   },
+   "sent_proj": {
+    "rho": 0.049,
+    "p": 0.6439,
+    "n": 91
+   },
+   "traj": {
+    "rho": -0.253,
+    "p": 0.0157,
+    "n": 91
+   },
+   "l7_adj": {
+    "rho": 0.137,
+    "p": 0.1956,
+    "n": 91
+   },
+   "word_proj": {
+    "rho": -0.085,
+    "p": 0.4258,
+    "n": 91
+   },
+   "word_adj": {
+    "rho": -0.146,
+    "p": 0.1662,
+    "n": 91
+   },
+   "entropy": {
+    "rho": 0.121,
+    "p": 0.2547,
+    "n": 91
+   }
+  },
+  "human": {
+   "disc": {
+    "rho": -0.61,
+    "p": 0.0007,
+    "n": 27
+   },
+   "sent_proj": {
+    "rho": 0.595,
+    "p": 0.0011,
+    "n": 27
+   },
+   "traj": {
+    "rho": -0.632,
+    "p": 0.0004,
+    "n": 27
+   },
+   "l7_adj": {
+    "rho": 0.603,
+    "p": 0.0009,
+    "n": 27
+   },
+   "word_proj": {
+    "rho": 0.324,
+    "p": 0.0997,
+    "n": 27
+   },
+   "word_adj": {
+    "rho": 0.131,
+    "p": 0.516,
+    "n": 27
+   },
+   "entropy": {
+    "rho": 0.311,
+    "p": 0.1146,
+    "n": 27
+   }
+  },
+  "ai_qwen": {
+   "disc": {
+    "rho": 0.038,
+    "p": 0.7645,
+    "n": 64
+   },
+   "sent_proj": {
+    "rho": 0.016,
+    "p": 0.8983,
+    "n": 64
+   },
+   "traj": {
+    "rho": -0.185,
+    "p": 0.1439,
+    "n": 64
+   },
+   "l7_adj": {
+    "rho": 0.055,
+    "p": 0.666,
+    "n": 64
+   },
+   "word_proj": {
+    "rho": -0.111,
+    "p": 0.381,
+    "n": 64
+   },
+   "word_adj": {
+    "rho": -0.12,
+    "p": 0.3465,
+    "n": 64
+   },
+   "entropy": {
+    "rho": -0.098,
+    "p": 0.4425,
+    "n": 64
+   }
+  },
+  "auc_sent_proj": 0.724,
+  "auc_sp_ru": 0.7378,
+  "auc_delta": 0.0139
+ },
+ "D_drift": {
+  "cos_D_ind": -0.9934,
+  "cos_D_ti": -0.9961,
+  "evr_ind": 0.3842,
+  "evr_ti": 0.437
+ },
+ "surrogate": {
+  "ratio_unit": 0.993
+ },
+ "verdicts": {
+  "V-R1": "FAIL",
+  "V-R1b": "FAIL",
+  "V-R2": "PASS",
+  "V-R3": "FAIL",
+  "V-R4": "PASS"
+ }
+}

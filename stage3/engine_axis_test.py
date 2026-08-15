@@ -406,7 +406,8 @@ def main():
         'per_group': {g: {'pc1_evr': float(evrs[g][0]), 'PE': PEs[g], 'n90': n90s[g]} for g in ('human', 'ai')},
         'axis': {'cos_Dh_Da': cos_Dh_Da, 'cos_mu_h_mu_a': cos_mu,
                  'shared_pc1_evr': float(p_shared.explained_variance_ratio_[0]),
-                 'shared_D_top10': [int(x) for x in top], 'org_hit_top6': org_hit},
+                 'shared_D_top10': [int(x) for x in top], 'org_hit_top6': org_hit,
+                 'D_shared': D_shared.tolist()},  # v0.80 落盘（ratio_unit 验证跨数据集复用）
         'per_doc_metrics': res,
         'hurst': {m: {'human_Ha': float(np.mean([x[0] for x in h_stats['human'][m]])) if h_stats['human'][m] else None,
                       'human_He': float(np.mean([x[1] for x in h_stats['human'][m]])) if h_stats['human'][m] else None,
