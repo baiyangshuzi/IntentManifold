@@ -1,0 +1,178 @@
+{
+ "summary": {
+  "vt_field": {
+   "n": 6,
+   "delta_R_T": {
+    "mean": null,
+    "per_run": []
+   },
+   "cos_R_end_T": {
+    "mean": null,
+    "per_run": []
+   },
+   "mean_cosF_T": null,
+   "mean_e": 0.1691,
+   "n_pullback_bf1_total": 9,
+   "n_free_bf0_total": 18,
+   "n_clauses_total": 28,
+   "clauses_per_run": 4.7,
+   "win_sent_proj_mean": 0.8674
+  },
+  "vt_field_persist": {
+   "n": 6,
+   "delta_R_T": {
+    "mean": -0.019,
+    "per_run": [
+     0.0157,
+     -0.1047,
+     0.0072,
+     -0.0084,
+     -0.028,
+     0.0043
+    ]
+   },
+   "cos_R_end_T": {
+    "mean": 0.9299,
+    "per_run": [
+     0.9162,
+     0.8575,
+     0.991,
+     0.8921,
+     0.9342,
+     0.9881
+    ]
+   },
+   "mean_cosF_T": 0.6968,
+   "mean_e": 0.1254,
+   "n_pullback_bf1_total": 28,
+   "n_free_bf0_total": 13,
+   "n_clauses_total": 43,
+   "clauses_per_run": 7.2
+  },
+  "vt_field_frozen": {
+   "n": 6,
+   "delta_R_T": {
+    "mean": 0.0,
+    "per_run": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "cos_R_end_T": {
+    "mean": 0.9488,
+    "per_run": [
+     0.9005,
+     0.9622,
+     0.9838,
+     0.9005,
+     0.9622,
+     0.9838
+    ]
+   },
+   "mean_cosF_T": 0.704,
+   "mean_e": 0.1498,
+   "n_pullback_bf1_total": 34,
+   "n_free_bf0_total": 10,
+   "n_clauses_total": 47,
+   "clauses_per_run": 7.8
+  },
+  "vt_field_full": {
+   "n": 6,
+   "delta_R_T": {
+    "mean": -0.0548,
+    "per_run": [
+     0.0542,
+     -0.1047,
+     0.0072,
+     -0.1085,
+     -0.1821,
+     0.0052
+    ]
+   },
+   "cos_R_end_T": {
+    "mean": 0.8941,
+    "per_run": [
+     0.9547,
+     0.8575,
+     0.991,
+     0.792,
+     0.7801,
+     0.989
+    ]
+   },
+   "mean_cosF_T": 0.7189,
+   "mean_e": 0.0715,
+   "n_pullback_bf1_total": 23,
+   "n_free_bf0_total": 22,
+   "n_clauses_total": 47,
+   "clauses_per_run": 7.8
+  },
+  "vt_gate_beam_baseline": {
+   "win_sent_proj_mean": 0.9288,
+   "n_segs": 18
+  }
+ },
+ "verdicts": {
+  "C-B1_传导": "FAIL（ΔR_T=-0.0190——负值——R 未被拉向 T——单样本 t p=0.345",
+  "C-B2_保持": "PASS（段3−段2 ΔcosR_T=-0.0046——判定线 ≥-0.05）",
+  "C-B4_冻结对照": "persist−frozen cos(R_end,T)=-0.0190（≤0.02 两解释不可分；>0.02 且 persist>frozen → 内化为生成产物）",
+  "C-B6_不劣于最强": "FAIL（vt_field 0.8674 vs vt_gate_beam 0.9288）",
+  "C-B3_表面惯性": "FAIL（persist−none 段3 对 T 贴合=+0.0132——判定线 ≥0.05）"
+ },
+ "metric_stats": {
+  "vt_field": {
+   "dim10_jump": 0.0599,
+   "dim10_hurst": 0.5171,
+   "turn10_steep": 0.1077,
+   "te_10_48": 0.4751,
+   "coupling": 0.0389
+  },
+  "vt_field_persist": {
+   "dim10_jump": 0.1008,
+   "dim10_hurst": 0.5487,
+   "turn10_steep": 0.138,
+   "te_10_48": 0.3466,
+   "coupling": 0.0393
+  },
+  "vt_field_frozen": {
+   "dim10_jump": 0.0867,
+   "dim10_hurst": 0.645,
+   "turn10_steep": 0.1268,
+   "te_10_48": 0.3642,
+   "coupling": -0.0172
+  },
+  "vt_field_full": {
+   "dim10_jump": 0.1006,
+   "dim10_hurst": 0.6316,
+   "turn10_steep": 0.1366,
+   "te_10_48": 0.4962,
+   "coupling": 0.0754
+  }
+ },
+ "hit_report": {
+  "vt_field": {
+   "hits": [],
+   "n_hit": 0
+  },
+  "vt_field_persist": {
+   "hits": [],
+   "n_hit": 0
+  },
+  "vt_field_frozen": {
+   "hits": [
+    "dim10_hurst"
+   ],
+   "n_hit": 1
+  },
+  "vt_field_full": {
+   "hits": [
+    "dim10_hurst"
+   ],
+   "n_hit": 1
+  }
+ }
+}

@@ -14,7 +14,7 @@ sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 from pathlib import Path
 import numpy as np
 
-BASE = Path(os.environ.get('INTENT_DYNAMICS_BASE', Path(__file__).resolve().parent.parent))
+BASE = Path(os.environ.get('INTENT_DYNAMICS_BASE', 'C:/Users/bai/Desktop/小说系统'))
 OUT = BASE / 'data' / 'training_intervention'
 (OUT / 'texts').mkdir(parents=True, exist_ok=True)
 sys.path.insert(0, str(BASE / 'stage3'))
@@ -61,7 +61,12 @@ CONDITIONS = {'none': {'mode': None, 'beta': 0.0},
               'vt_seed': {'mode': 'vt_seed'},                        # 种子 + prompt 核心注入（无 beam）
               'vt_kalman_seed': {'mode': 'vt_kalman_seed'},          # 种子 + 在线 EMA 注入（无 beam）
               'vt_kalman_gate': {'mode': 'vt_kalman_gate'},         # 种子 + Kalman 预测门控注入强度
-              'vt_gate_beam': {'mode': 'vt_gate_beam'}}             # 门控→{beam 开关, 注入强度}双自由度（待办①）
+              'vt_gate_beam': {'mode': 'vt_gate_beam'},             # 门控→{beam 开关, 注入强度}双自由度（待办①）
+              # v0.78 根意图势场端到端（引擎待办 2——自由波动+势场回拉——根意图×表面意图交互）
+              'vt_field': {'mode': 'vt_field', 'alpha': 0.1},                 # 自治环：R=prompt 核心→句元级偏离门控回拉+慢 EWMA 内化
+              'vt_field_persist': {'mode': 'vt_field_persist', 'alpha': 0.1},  # 段 1-2 注入 φ(T)——段 3 关闭注入（R 继续更新）——内化检验
+              'vt_field_frozen': {'mode': 'vt_field_frozen', 'alpha': 0.1},    # 同 persist 但 R 全程冻结（C-B4 对照——分离内化 vs 注入残存）
+              'vt_field_full': {'mode': 'vt_field_full', 'alpha': 0.1}}        # 段 1-3 全程注入 φ(T)（C-B3 上限基准）
 
 # 人类锚文档绑定（prompt → human_zh 文档——按序）
 HUMAN_BIND = {'P1': 'ZH-H01', 'P2': 'ZH-H02', 'P3': 'ZH-H03'}
@@ -391,6 +396,104 @@ def generate_segment_vt(model, tok, ids, lookup, cfg, device, rng, seg_start, vo
     return text, n, matched_total, top1s
 
 
+def generate_segment_field(model, tok, ids, lookup, cfg, device, rng, seg_start, vocab_cache,
+                           vtok_fn, enc, disc, state, band_stds, freeze_R=False):
+    """v0.78 根意图势场段循环（引擎待办 2——自由波动+势场回拉）
+
+    根意图 R（64 维单位向量——构造性锚）——表层意图 F(t)（句元指纹）——双向交互：
+    - 根→表：句元完成→F̄=最近 3 句元均值（降噪）→ p=F̄·R → e=0.90−p 门控分级(0.05/0.02)
+      偏离超阈才回拉（定律一：潜意识优先——低于阈值完全自由）
+    - 回拉方向：vt_field 用维度加权定向修正 v_pull=norm(W⊙R)（W_k=1+λ·|F̄−R|/band_std_k——
+      只加重偏离贡献大的维度，避免全向量注入在无关维度引入偏移）；
+      persist/frozen/full 用固定目标 T（人类核心——注入目标不随 R 漂移）
+    - 表→根：R←norm((1−α)R+α·F̄)（慢 EWMA——内化时间常数≈10 句元）——freeze_R 时跳过
+    state: {'R','R0','T','alpha','buf'(≤3),'inject_target','trace'}——trace 每句元记录
+    返回 (段文本, 步数, match, top1)"""
+    import torch
+    from para_dimensions import fingerprint, norm_rows
+    out_ids = ids[0].cpu().tolist()
+    n = 0
+    matched_total = 0
+    top1s = 0
+    clause_buf = ''
+    alpha = state.get('alpha', 0.1)
+    R = state.get('R')
+    if R is None:
+        R = state.get('R0')
+        state['R'] = R
+    T = state.get('T')
+    mode_vt = cfg.get('mode')
+    use_target = mode_vt in ('vt_field_persist', 'vt_field_frozen', 'vt_field_full')
+    inject_target = state.get('inject_target', True)
+    vtok = None
+    trace = []
+    while not segment_done(tok.decode(out_ids[seg_start:]), n):
+        cur = torch.tensor([out_ids], device=device)
+        nxt, matched, top1 = sample_next(model, tok, cur, lookup, cfg, device, rng, vocab_cache,
+                                         vtok_emb=vtok, vtok_pos=seg_start)
+        out_ids.append(nxt)
+        n += 1
+        matched_total += matched
+        top1s += top1
+        clause_buf += tok.decode([nxt])
+        if clause_buf and clause_buf[-1] in '。！？':
+            try:
+                sv = enc.encode([clause_buf], normalize_embeddings=True, batch_size=1,
+                                show_progress_bar=False, device='cpu')
+                SV = torch.from_numpy(sv.astype(np.float32)).to('cpu')
+                with torch.no_grad():
+                    F = norm_rows(fingerprint(SV, disc)).detach().cpu().numpy()[0]
+                # 滑动窗口均值（最近 3 句元——降噪——"表层意图流向"）
+                state['buf'].append(F)
+                if len(state['buf']) > 3:
+                    state['buf'].pop(0)
+                Fbar = np.mean(state['buf'], 0)
+                Fbar = Fbar / (np.linalg.norm(Fbar) + 1e-9)
+                # 偏离门控（标量投影——与 Kalman 观测口径同构）
+                p = float(Fbar @ R)
+                e = 0.90 - p
+                if e > 0.05:
+                    bf = 1.0
+                elif e > 0.02:
+                    bf = 0.5
+                else:
+                    bf = 0.0
+                # 回拉方向（矢量定向——标量门控+矢量注入分离）
+                if use_target:
+                    v_pull = T if T is not None else R
+                elif bf > 0:
+                    z = np.abs(Fbar - R) / (band_stds + 1e-9)
+                    v_pull = (1.0 + 1.0 * z) * R
+                    v_pull = v_pull / (np.linalg.norm(v_pull) + 1e-9)
+                else:
+                    v_pull = R
+                # 表→根更新（慢 EWMA——内化）
+                if not freeze_R:
+                    R = (1 - alpha) * R + alpha * Fbar
+                    R = R / (np.linalg.norm(R) + 1e-9)
+                    state['R'] = R
+                # 注入执行（bf 门控——persist/frozen 段 3 注入关闭→完全自由）
+                if bf > 0 and inject_target:
+                    base = T if use_target else v_pull
+                    vtok = vtok_fn(base) if bf >= 1.0 else vtok_fn(base) * bf
+                else:
+                    vtok = None
+                trace.append({'p': round(p, 4), 'e': round(e, 4), 'bf': bf,
+                              'cosF_R': round(float(Fbar @ R), 4),
+                              'cosR_R0': round(float(R @ state['R0']), 4),
+                              'cosR_T': round(float(R @ T), 4) if T is not None else None,
+                              'cosF_T': round(float(Fbar @ T), 4) if T is not None else None})
+            except Exception as ex:
+                print(f'  field 句元监测失败: {str(ex)[:60]}')
+                pass
+            clause_buf = ''
+        if n >= SEG_MAX:
+            break
+    text = tok.decode(out_ids[seg_start:])
+    state['trace'].extend(trace)
+    return text, n, matched_total, top1s
+
+
 def run_one(condition, prompt, seed, enc, disc, pseg, model, tok, cfg, device, vocab_cache=None):
     """单篇 3 段：段1=纯续写基线——段2/3=触发后窗口——prompt=(id, text)
     v0.68-2：good_segment_buffer（好段主题词锚——防漂移锁定）+ placebo（随机 token）"""
@@ -411,6 +514,7 @@ def run_one(condition, prompt, seed, enc, disc, pseg, model, tok, cfg, device, v
     cfg['beta'] = cond.get('beta', 0.0)
     cfg['union'] = cond.get('union', False)
     cfg['beam'] = cond.get('beam', 0)
+    cfg['alpha'] = cond.get('alpha', cfg.get('alpha', 0.1))  # v0.78 势场 EWMA 系数
     placebo = cond.get('placebo', False)
     # v0.68-4 外部篇核心：生成前一次性提取（意图核心全程稳定——不随生成更新）
     ext_theme = None
@@ -588,7 +692,8 @@ def run_one(condition, prompt, seed, enc, disc, pseg, model, tok, cfg, device, v
 
     # ===== v0.73 虚拟 token 意图注入（模块 5——MLP 映射层——fingerprint→embedding 空间）=====
     if cfg.get('mode') in ('vt_oracle', 'vt_ext', 'vt_kalman', 'vt_seed_beam', 'vt_seed', 'vt_kalman_seed',
-                           'vt_kalman_gate', 'vt_gate_beam'):
+                           'vt_kalman_gate', 'vt_gate_beam',
+                           'vt_field', 'vt_field_persist', 'vt_field_frozen', 'vt_field_full'):
         import torch as _T
         from train_intent_mlp import MLP as _MLP
         from subclause_structure import split_subclauses as _split
@@ -630,9 +735,21 @@ def run_one(condition, prompt, seed, enc, disc, pseg, model, tok, cfg, device, v
 
         mode_vt = cfg['mode']
         v_dir = None
-        if mode_vt in ('vt_ext', 'vt_seed_beam', 'vt_seed', 'vt_kalman_gate', 'vt_gate_beam'):
+        field_T = None
+        if mode_vt in ('vt_ext', 'vt_seed_beam', 'vt_seed', 'vt_kalman_gate', 'vt_gate_beam', 'vt_field'):
             v_dir = core_of_texts([prompt_text])
             print(f'  {mode_vt} 外部核心 ✓（prompt 句元指纹均值——可实现锚）')
+        elif mode_vt in ('vt_field_persist', 'vt_field_frozen', 'vt_field_full'):
+            # v0.78 势场目标 T=人类核心（离线 field_target.json——independent_test B- 文档）
+            f_t = BASE / 'data' / 'dim_analysis' / 'field_target.json'
+            if not f_t.exists():
+                print(f'  {mode_vt}: 缺少 field_target.json——报错跳过（先跑 engine_field_evidence.py）')
+                return {'run_id': f'{condition}-{prompt[0]}-s{seed}', 'condition': condition,
+                        'prompt_id': prompt[0], 'seed': seed, 'status': 'skip_missing_target', 'segs': []}
+            field_T = np.asarray(json.loads(f_t.read_text(encoding='utf-8'))['human_core'], dtype=np.float32)
+            field_T = field_T / (np.linalg.norm(field_T) + 1e-9)
+            v_dir = field_T
+            print(f'  {mode_vt} 人类核心 T ✓（field_target.json——32 篇独立测试人类文档均值）')
         elif mode_vt == 'vt_oracle':
             # lookahead oracle：none 同 prompt/seed 的全篇核心（事后可知——oracle 模拟）
             f_man = OUT / 'manifest.json'
@@ -659,9 +776,58 @@ def run_one(condition, prompt, seed, enc, disc, pseg, model, tok, cfg, device, v
             print(f'  dim_perturb: dim{dp_dim} {dp_mode}={dp_val:.4f} ✓')
         vtok = vtok_fn(v_dir) if v_dir is not None else None
         segs = []
-        state = {'running': None}
+        # v0.78 势场状态（R=根意图/R0=初始/T=目标/alpha/buf=句元窗/trace）
+        # 修正（v0.78-2）：R0 统一=prompt 核心——R 从 prompt 出发被表层压力拉向 T——
+        # ΔR_T = cos(R_end,T)−cos(R0,T) 从非 1.0 起点出发才可测"传导位移"（避免天花板效应）
+        if mode_vt in ('vt_field', 'vt_field_persist', 'vt_field_frozen', 'vt_field_full'):
+            _bands = json.loads((BASE / 'data' / 'dim_analysis' / 'planner_targets.json').read_text(
+                encoding='utf-8'))['dim_bands']
+            band_stds = np.zeros(64, dtype=np.float32)
+            for b in _bands:
+                band_stds[b['dim']] = b['human']['band_std']
+            _alpha = cfg.get('alpha', 0.1)
+            _r0 = core_of_texts([prompt_text])  # R0=构造性根意图起点（prompt 核心）
+            state = {'running': None,
+                     'R': None, 'R0': _r0.astype(np.float32).copy(),
+                     'T': field_T.astype(np.float32).copy() if field_T is not None else None,
+                     'alpha': _alpha, 'buf': [], 'trace': [], 'inject_target': True,
+                     'band_stds': band_stds}
+            print(f'  {mode_vt} 势场初始化 ✓——R0=prompt 核心——T={"人类核心" if field_T is not None else "无(自治)"}——alpha={_alpha}')
+        else:
+            state = {'running': None}
         for si in range(3):
-            if mode_vt in ('vt_seed_beam', 'vt_seed') and si == 0:
+            if mode_vt in ('vt_field', 'vt_field_persist', 'vt_field_frozen', 'vt_field_full') and si == 0:
+                # v0.78 段 1：种子 + 全强度注入（同 vt_gate_beam 框架——可比）+ R 初始化
+                tw0 = extract_theme_words(prompt_text[:90], pseg, tok, K=cfg['K'])
+                lookup0 = build_theme_lookup(tw0, tok) if tw0 else None
+                cfg['mode'] = 'prob'
+                cfg['beta'] = 0.5
+                vtok_s1 = vtok if mode_vt != 'vt_field' else vtok_fn(state['R0'])
+                state['R'] = state['R0'].copy()
+                out_ids = ids[0].cpu().tolist()
+                n = 0
+                while not segment_done(tok.decode(out_ids[ids.shape[1]:]), n):
+                    cur = torch.tensor([out_ids], device=device)
+                    lk = lookup0 if n < 12 else None
+                    nxt, m, t1 = sample_next(model, tok, cur, lk, cfg, device, rng, vocab_cache,
+                                             vtok_emb=vtok_s1, vtok_pos=ids.shape[1])
+                    out_ids.append(nxt)
+                    n += 1
+                    if n >= SEG_MAX:
+                        break
+                text = tok.decode(out_ids[ids.shape[1]:])
+                n_steps, matched, top1s = n, 0, 0
+                cfg['mode'] = mode_vt
+                dims = monitor_segment(text, enc, disc, pseg, device='cpu')
+            elif mode_vt in ('vt_field', 'vt_field_persist', 'vt_field_frozen', 'vt_field_full'):
+                # v0.78 段 2/3：势场循环（persist/frozen 段 3 注入关闭——内化检验；frozen R 不更新）
+                state['inject_target'] = not (mode_vt in ('vt_field_persist', 'vt_field_frozen') and si >= 2)
+                freeze_R = (mode_vt == 'vt_field_frozen')
+                text, n_steps, matched, top1s = generate_segment_field(
+                    model, tok, ids, None, cfg, device, rng, ids.shape[1], vocab_cache,
+                    vtok_fn, enc, disc, state, state['band_stds'], freeze_R=freeze_R)
+                dims = monitor_segment(text, enc, disc, pseg, device='cpu')
+            elif mode_vt in ('vt_seed_beam', 'vt_seed') and si == 0:
                 # 段 1：句级种子（前 12 token β=0.5 概率层引导——v0.69-4 最小干预）+ V 注入
                 tw0 = extract_theme_words(prompt_text[:90], pseg, tok, K=cfg['K'])
                 lookup0 = build_theme_lookup(tw0, tok) if tw0 else None
@@ -838,12 +1004,38 @@ def run_one(condition, prompt, seed, enc, disc, pseg, model, tok, cfg, device, v
                 seg_rec['disc'] = round(float(dims['disc']), 4)
             else:
                 seg_rec['dims'] = None
+            if mode_vt in ('vt_field', 'vt_field_persist', 'vt_field_frozen', 'vt_field_full'):
+                seg_rec['field_trace'] = state['trace'][-30:]  # 本段句元轨迹（p/e/bf/cosR_R0/cosR_T/cosF_T）
             segs.append(seg_rec)
             ids = torch.tensor([ids[0].cpu().tolist() + tok.encode(text)], device=device)
             if device == 'cuda':
                 torch.cuda.empty_cache()
             print(f'[{condition}|{prompt[0]}|s{seed}] 段{si+1} vt注入——'
                   f'sent_proj {dims["sent_proj"] if dims else "NA"}')
+        # v0.78 run 级势场汇总（R 漂移轨迹端点）
+        if mode_vt in ('vt_field', 'vt_field_persist', 'vt_field_frozen', 'vt_field_full'):
+            R_end = state.get('R')
+            R0 = state.get('R0')
+            T = state.get('T')
+            trace = state.get('trace', [])
+            run_summary = {
+                'alpha': state.get('alpha'),
+                'n_clauses': len(trace),
+                'n_pullback_bf1': sum(1 for t in trace if t['bf'] >= 1.0),
+                'n_pullback_bf05': sum(1 for t in trace if t['bf'] == 0.5),
+                'n_free_bf0': sum(1 for t in trace if t['bf'] == 0.0),
+                'cos_R0_T': round(float(R0 @ T), 4) if T is not None else None,
+                'cos_R_end_T': round(float(R_end @ T), 4) if (R_end is not None and T is not None) else None,
+                'cos_R_end_R0': round(float(R_end @ R0), 4) if R_end is not None else None,
+                'delta_R_T': round(float(R_end @ T) - float(R0 @ T), 4) if (R_end is not None and T is not None) else None,
+                'mean_cosF_T': round(float(np.mean([t['cosF_T'] for t in trace if t['cosF_T'] is not None])), 4)
+                if any(t['cosF_T'] is not None for t in trace) else None,
+                'mean_cosF_R': round(float(np.mean([t['cosF_R'] for t in trace])), 4) if trace else None,
+                'mean_e': round(float(np.mean([t['e'] for t in trace])), 4) if trace else None,
+            }
+            return {'run_id': f'{condition}-{prompt[0]}-s{seed}', 'condition': condition,
+                    'prompt_id': prompt[0], 'seed': seed, 'status': 'done',
+                    'triggered': True, 'segs': segs, 'field_summary': run_summary}
         return {'run_id': f'{condition}-{prompt[0]}-s{seed}', 'condition': condition,
                 'prompt_id': prompt[0], 'seed': seed, 'status': 'done',
                 'triggered': True, 'segs': segs}
@@ -955,6 +1147,8 @@ def main():
     ap.add_argument('--threshold', type=float, default=0.85)
     ap.add_argument('--conditions', default=None, help='逗号分隔（如 lg05,lg10,lg_placebo——默认全部）')
     ap.add_argument('--seeds', default=None, help='逗号分隔种子（默认 0,1,2——placebo 除外）')
+    ap.add_argument('--field-alpha', type=float, default=None,
+                    help='v0.78 势场 EWMA 系数 α（默认用 CONDITIONS 定义值——α 扫描用）')
     a = ap.parse_args()
     THRESHOLD = a.threshold
     seeds_arg = [int(s) for s in a.seeds.split(',')] if a.seeds else None
@@ -969,6 +1163,11 @@ def main():
     runs = json.loads(f_man.read_text(encoding='utf-8')) if f_man.exists() else []
     done = {r['run_id'] for r in runs if r.get('status') == 'done'}
 
+    if a.field_alpha is not None:
+        for c in ('vt_field', 'vt_field_persist', 'vt_field_frozen', 'vt_field_full'):
+            if c in CONDITIONS:
+                CONDITIONS[c]['alpha'] = a.field_alpha
+        print(f'--field-alpha {a.field_alpha} ✓（覆盖势场条件 α）')
     conds = a.conditions.split(',') if a.conditions else list(CONDITIONS)
     if a.pilot:
         matrix = [(c, p, 1) for c in conds if c in ('lg05', 'lg10', 'lg_placebo') for p in PROMPTS]
