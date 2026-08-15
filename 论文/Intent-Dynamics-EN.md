@@ -277,6 +277,22 @@ dim48/dim10 perturbations change reference/topic organization of generated text 
 
 **Methodological contributions (retained)**: ①**64-dim full-space direction angles suffer high-dim degeneracy** (random vectors near-orthogonal — all switch angles ~90°) — direction/return dimensions MUST be measured in the **(D,E2) low-dim manifold projection** (after fix θ_switch 18–93° has discrimination) — the low-dim-projection principle for all future angular analyses; ②**document-order split trap** (sequential split → evaluation set all-AI — per-doc split fix); ③**turn type (large-angle no-return) is rare (~6%)** — the switch-type distribution itself carries information (most switches are small-angle or return — "thoughts turn less than imagined").
 
+### 6.6.6 Spectrum-Feature Priority Ranking (v0.84 — partially upheld — F1/F3 verified as priority)
+
+**Task (user design)**: systematic comparison of 9 mathematical features (F1 α distribution / F2 ε distribution / F3 ratio_unit / F4 velocity autocorrelation / F5 distribution fit / F6 spectral slope / F7 DFA-Hurst / F8 band energy / F9 spectral entropy) — find features that are measurable/intervenable/embeddable/trainable — four-axis composite (0.4 discrimination + 0.3 intervention + 0.2 embedding + 0.1 training) — criteria S-F1..F3 preregistered.
+
+**Verdict (partially upheld)**: **S-F1 PASS** (strong candidates {F1 d=+1.94, F3 d=−3.18, F7 dfa d=−1.13} — F1/F3 priority verified); **S-F2 FAIL** (F4 lag1 d=−0.31 — "thinking inertia" weak — but **lag2 d=+1.02 rhythmicity signal**); **S-F3 PASS** (top-3={F3,F1,F2}).
+
+**Priority ranking (guides subsequent experiments)**:
+1. **F3 ratio_unit (0.90)** — propulsion concentration — strongest d but shrinks on the independent set (v0.80 direction retained)
+2. **F1 α distribution (0.76)** — along-axis propulsion — stable strong candidate (same source as jump) — **F1_mean_signed d=+0.80 (humans advance forward more — direction preference is a signal beyond magnitude)**
+3. **F2 ε distribution (0.52)** — perpendicular component has NO discrimination (d=−0.11 — ratio_unit's power comes from the parallel component) — constraint only
+4. **F4 autocorrelation (0.41)** — lag2 d=+1.02 rhythmicity candidate (pending independent validation)
+5. **F7 DFA/Hurst (0.32)** — d=−1.13 but scaling exponent questionable (short-series bias — α_D=0.03 implausibly low)
+6. **Frequency domain null** (F6/F8/F9 d≈0 — validates "do not engineer frequency features")
+
+**Method**: intervention evidence from 201 existing runs offline (vt_gate_beam primary contrast — zero new generation); BH-FDR multiple-comparison correction; preregistered fixed bands; F1 direction-sign subfeatures (review absorbed).
+
 ### 6.6 Jump Mechanism and Controllable Variables (v0.82 — why AI jumps less)
 
 **Determinism audit**: jump detection is deterministically correct — no segment-boundary confound (80%+ of jumps inside segments), no clause-length bias (ρ≈0), **jump-dominant dims = [11,13,17,36,42,55...] (identical human/AI — overlapping the axis top-dims — jumps are along-axis propulsion confirmed)**, model factor small (DS 7.4 vs Qwen 8.1 per 100 clauses — "AI jumps less" is a paradigm-wide property), semantic validation = real content turns (character introduction / dialogue switch / scene transition).
