@@ -1,0 +1,61 @@
+{
+ "criteria": {
+  "M-A1": false,
+  "M-A2_ref": true,
+  "overall": "否定"
+ },
+ "c_dist": {
+  "加号": {
+   "min": 40,
+   "max": 165,
+   "mean": 99.2
+  },
+  "减号": {
+   "min": 2,
+   "max": 78,
+   "mean": 31.4
+  },
+  "乘号": {
+   "min": 110,
+   "max": 8366,
+   "mean": 2518.7
+  },
+  "除号": {
+   "min": 1,
+   "max": 32,
+   "mean": 7.5
+  }
+ },
+ "placeholder": {
+  "words": [
+   "wu",
+   "ji",
+   "pan",
+   "kuo"
+  ],
+  "sil": 0.09724339842796326,
+  "acc_lda": 0.9270833333333334,
+  "ok": false
+ },
+ "true_words": {
+  "sil": 0.11792242527008057,
+  "acc_lda": 0.9895833333333334,
+  "acc_knn": 0.8958333333333334,
+  "center_ratio": 0.97
+ },
+ "delta": {
+  "sil": 0.021,
+  "acc": 0.062
+ },
+ "permutation": {
+  "true_sil": 0.11792242527008057,
+  "p": 0.0,
+  "p95": -0.0547063883394003,
+  "mean_null": -0.08231914091482759
+ },
+ "m_a2": {
+  "math_intra": 0.878,
+  "math_human_inter": 0.777
+ },
+ "verdict": "否定"
+}

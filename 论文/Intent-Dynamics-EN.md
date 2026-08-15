@@ -293,6 +293,12 @@ dim48/dim10 perturbations change reference/topic organization of generated text 
 
 **Method**: intervention evidence from 201 existing runs offline (vt_gate_beam primary contrast — zero new generation); BH-FDR multiple-comparison correction; preregistered fixed bands; F1 direction-sign subfeatures (review absorbed).
 
+### 6.6.7 Math-Operation Geometry Pre-test (v0.85 — minimum threshold not met — digit-range hidden-feature evidence)
+
+**Question (user)**: do math-operation symbol/digit combinations have distinguishable geometric structure in intent space? **Pre-test (minimum threshold) NEGATED**: 4 operation classes (add/sub/mul/div × 24 — seed 2026) — structured transcription — bge→fingerprint — **placeholder-word baseline control** (甲/乙/丙/丁→random pinyin replacing operator words — same template same digits).
+
+**Result**: operation texts are highly separable (LDA acc 0.990) — **but the placeholder baseline is also separable (0.927) — Δacc=+0.06 fails the 0.15 criterion** — silhouette Δ=+0.02 (<0.10) — **four-class separability is driven mainly by C-range distribution** (add [40,165]/sub [2,78]/mul [110,8366]/div [1,32] — BGE sensitive to numeric magnitude — digit surface features) — **no evidence for operator-semantics incremental contribution — minimum threshold not met — not worth continuing as planned**. Permutation test shows real structure (p<0.001) but of the digit-combination-distribution kind. Methodological value: **the placeholder baseline is the standard control for the "lexical classification trap"** (any template-classification experiment must add it) — digit range is an inherent confound of symbolic text (same-range paired design is the prerequisite for continuation).
+
 ### 6.6 Jump Mechanism and Controllable Variables (v0.82 — why AI jumps less)
 
 **Determinism audit**: jump detection is deterministically correct — no segment-boundary confound (80%+ of jumps inside segments), no clause-length bias (ρ≈0), **jump-dominant dims = [11,13,17,36,42,55...] (identical human/AI — overlapping the axis top-dims — jumps are along-axis propulsion confirmed)**, model factor small (DS 7.4 vs Qwen 8.1 per 100 clauses — "AI jumps less" is a paradigm-wide property), semantic validation = real content turns (character introduction / dialogue switch / scene transition).
