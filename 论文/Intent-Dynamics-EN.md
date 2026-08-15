@@ -242,101 +242,31 @@ dim48/dim10 perturbations change reference/topic organization of generated text 
 ### 6.4 Implementation Path (from verified components to end-to-end)
 
 1. **Fluctuation-pattern learning** (planner core — ✅ COMPLETE v0.77-1): five-metric target distributions (jump/turn/Hurst/TE/coupling — human p25–p75 bands) + 64-dim wave-band polarity verification (positive 1.17× wide / negative 0.61× narrow — 11/11) — output `planner_targets.json` — see §6.2 target table
-2. **Field end-to-end** (— ✅ IMPLEMENTED v0.78 — **result: inference-time injection cannot reshape root intent — surface layer is plastic — empirical boundary correction**): root intent R (constructive anchor — prompt-core start) → clause-level deviation detection (projection e=0.90−F·R — gated at 0.05/0.02, reusing existing thresholds) → above-threshold vt-channel pull-back (dimension-weighted steering v_pull=norm(W⊙R) — only weights dimensions contributing most to deviation) → **surface→root update** (slow EWMA R←norm((1−α)R+αF̄) — 3-clause sliding window for denoising — the bidirectional root×surface interaction) — 24 runs (vt_field autonomous loop / vt_field_persist internalization test / vt_field_frozen frozen control / vt_field_full sustained injection):
-   - **C-B1 conduction FAIL** (ΔR_T=−0.019, p=0.345 — R not pulled toward T=human core) — α calibration 0.02/0.05/0.1 identical (α-insensitive)
-   - **Mechanism diagnosis**: root intent R is a **faithful online estimator of the trajectory, not a controller** — R follows the actual surface F, not the injected instruction T (F only aligns with T at 0.37–0.98, prompt-dependent) — an injection-target vs generation-realization gap (single-token injection pressure < 0.5B model prior) — measurement ceiling (R0–T cosine 0.90–0.98)
-   - **Surface-layer genuine effect**: vt_field_frozen/full dim10_hurst 0.63–0.65 **hits the human band** (0.60–0.70) — human-core injection improves surface long-range memory — surface is plastic
-   - **Empirical correction**: the boundary between surface-layer intervention (plastic — 201-run spectrum + Hurst hit) and root-intent-layer intervention (unreachable at inference — needs training-time) — offline evidence likewise FAIL (segment-start single-token injection shows no trajectory-direction conduction — sent_proj gain ≠ trajectory-direction conduction)
+2. **Field end-to-end**: root intent (document/external core) → deviation detection (trajectory–field distance, clause-level) → above-threshold triggers vt-channel pull-back — "free fluctuation + field pull-back" generation loop
 3. **Polarity steering**: positive dims encourage waves (wide target band); negative dims suppress swinging (narrow band) — implemented via the dim_perturb channel
-4. **Training-time** (— the right path after the v0.78 negative result): dim48/dim10 as loss terms (φ jointly optimized with LM — eliminating OOD injection) — inference-time injection cannot change the generated trajectory itself; training-time regularization shapes the trajectory directly — grounded in R's faithful following of F (the surface trajectory is the observation of root intent — changing the trajectory = changing root intent)
+4. **Training-time**: dim48/dim10 as loss terms (φ jointly optimized with LM — eliminating OOD injection)
 5. **Verification**: end-to-end generation → five flow metrics (jump/turn/Hurst/TE/coupling) should approach the human portrait — the engine's acceptance criterion
 
-### 6.5 Intent-Axis Hypothesis Test (v0.79 — binary negation — continuum correction — offline)
+### 6.6.10 Math-Operation Collapse Vectors across Abstraction Levels (v0.88 — longitudinal collapse — shared content pool — placeholder-Δg criterion — REJECTED)
 
-**Hypothesis**: human jump d=+2.16 may not be random jumps — a "root-intent axis" D exists in the high-dim space — humans advance along the axis (directed change) — AI drifts isotropically without direction ("directed propulsion vs directionless diffusion").
+**Question (user — directional correction)**: v0.85 compared four operations at a single language level and only measured operator-word surface differences. Real mathematization is *longitudinal*: for each operation, the collapse direction C = n(F_L4) − n(F_L1) from L1 (language entities) → L2 (action language) → L3 (symbols) → L4 (algebra) might be the geometric signature of the operation. **Telescoping identity**: C = sum of level-wise displacements — middle levels contribute only to diagnostics (pre-registered declaration).
 
-**Verdict (criteria C1–C8 preregistered — overall: NEGATED)**:
-- **Both groups have a strong axis**: difference-pool PC1 explained variance human 0.663 / AI 0.596 (isotropic surrogate baseline 0.018 — 36× above) — group axes nearly aligned **cos(D_h, D_a)=0.985** — the axis is an inherent structure of the discriminator space (dominant direction of fp space) — the "humans have an axis, AI does not" dichotomy fails
-- **The real difference is a continuum**: direction consistency align_cos (amplitude-free — mean|û·D|) human 0.632 vs AI 0.581 (d=+2.56); **propulsion concentration ratio_unit=j_perp/j_par human 0.086 vs AI 0.105 (d=−3.18 — a stronger discriminator than jump d=+2.16)** — "**humans advance flatter along the axis; AI spreads rounder**"
-- **Memory is not on the difference axis**: H(α)human−H(ε)human=−0.04 (α Hurst 0.13–0.17 — RS downward bias) — long-range memory (Hurst 0.62) is a state-level structure of activations, not a difference-direction structure
-- **New discriminative signal**: inter-group mean-drift directions opposite (cos(μ_h,μ_a)=−0.29)
-- Exploratory consistency hit: within-human Spearman(align_cos, j_par)=+0.745 (p=0.013 — old "jump" = axis propulsion, within-group evidence)
+**Design** (criteria pre-registered — 5 review points absorbed): 4 ops × 12 ladders × 4 levels; **shared content pool** (the same (A,B,object,variable-group) across all four ops — A,B value distributions pointwise identical; C values appear only in L2/L3 and telescope-cancel — the v0.85 numeric-range confound is structurally eliminated); placeholder arm = same texts with only operator slots swapped (P0 pre-check switched to random pinyin — sil 0.224→0.066); **both arms residualized against the same real-arm common direction Ĉ** (Δg same-baseline — the shared "narrative→algebra" jump, κ=0.534, removed); fresh seed 20260816.
 
-**Implication for the engine**: axis D is a shared structure — planner axis-coordinate targets (align_cos/ratio_unit human bands) should target the **organization of propulsion** (concentration/drift direction), not axis existence — "propulsion concentration" is a candidate new discriminative feature (d=−3.18 > jump d=+2.16) — formal inclusion requires independent test-set validation.
+**Results (honest)**:
 
-**Independent test-set validation (v0.80 — NEGATED — directional evidence retained)**: on the independent test set (32 pairs baihua/shiping × human/ai/qwen three sides — frozen D, no fitting leakage) the ratio_unit effect shrinks to **d=−0.49** (1/6.5 of bilingual −3.18 — paired Wilcoxon p=0.073 marginal) — **not admitted as a formal discriminator** (user criterion d>1.5 unmet). Baihua-domain d=−1.07 (same direction, insufficient strength) + shiping d=+0.07 (officialese convergence — consistent with the shiping seven-dim failure precedent). **Incremental value retained**: low redundancy with sent_proj (pooled 0.049 / within-human 0.595) + intervention-space independence (Δ-corr +0.021 — injection does not alter propulsion concentration). **Axis stable across corpora** (cos |0.99| — discriminator-space inherent structure confirmed). Shrinkage mechanism: independent-set human short texts (5–19 diffs) noise contracting toward the isotropic anchor — direction real, strength insufficient.
-
-**Jump-event analysis (v0.81 — "dilution hypothesis" NEGATED — jump mechanism confirmed)**: hypothesis "ratio_unit discriminative power is diluted by non-jump clauses and concentrated at jump points" — bilingual event-level test (p90 same threshold, 946/704 jump windows ±2 diffs, 2×2 matrix, cluster CI): **jump-window d=−0.53 vs non-jump-window d=−0.48 — nearly identical — the difference is globally diffuse, not jump-specific (dilution hypothesis fails)**. "Lower ratio_unit at jump windows" is a **mechanism common to both groups** (human d=+5.28 / AI d=+3.89 — AI stronger) — **jumps are axis-aligned pulses common to both** (α-aligned trajectories same shape — center along-axis projection 0.91/0.89, rise-then-fall — dim10+48 dual-p75 co-occurrence 0.54 at jumps vs 0.05 — topic+reference coordinated propulsion — organizational-layer mechanism confirmed). **Human–AI difference lies in jump density and amplitude** (density d=+1.85 — human 12.1 vs AI 7.7 per 100 clauses — clustering gap 5 vs 9), not jump purity — D_excl guardrail passed (cos 0.999 — no circularity).
-
-### 6.6.5 Intent-Switch Geometric Clustering (v0.83 — four-type conception empirically tested — NEGATED — continuity weak structure retained)
-
-**Conception (user)**: intent switching has universal geometric types (expand/turn/return/layer — pure form, genre-independent). **Empirical test (1626 jump points — 8 geometric features — per-doc 60/40 split — KMeans+GMM+stability — prior rules — criteria S-C1..C3 preregistered) — overall: NEGATED**:
-- **S-C1 FAIL**: silhouette=0.214 (<0.30 — weak-structure band) — but stability cos=0.987 + GMM ARI=0.811 — **"switch geometry has stable continuous structure but no discrete types"** — the four types are a cognitive conception, not a data-clusterable fact
-- **S-C2 FAIL**: four-type rule residual 25% (turn type only ~6%)
-- **S-C3 FAIL**: no human/AI four-type distribution difference (χ² p=0.42 — all type proportion gaps <0.04 — "humans turn more / AI expands more" does not hold)
-
-**Methodological contributions (retained)**: ①**64-dim full-space direction angles suffer high-dim degeneracy** (random vectors near-orthogonal — all switch angles ~90°) — direction/return dimensions MUST be measured in the **(D,E2) low-dim manifold projection** (after fix θ_switch 18–93° has discrimination) — the low-dim-projection principle for all future angular analyses; ②**document-order split trap** (sequential split → evaluation set all-AI — per-doc split fix); ③**turn type (large-angle no-return) is rare (~6%)** — the switch-type distribution itself carries information (most switches are small-angle or return — "thoughts turn less than imagined").
-
-### 6.6.6 Spectrum-Feature Priority Ranking (v0.84 — partially upheld — F1/F3 verified as priority)
-
-**Task (user design)**: systematic comparison of 9 mathematical features (F1 α distribution / F2 ε distribution / F3 ratio_unit / F4 velocity autocorrelation / F5 distribution fit / F6 spectral slope / F7 DFA-Hurst / F8 band energy / F9 spectral entropy) — find features that are measurable/intervenable/embeddable/trainable — four-axis composite (0.4 discrimination + 0.3 intervention + 0.2 embedding + 0.1 training) — criteria S-F1..F3 preregistered.
-
-**Verdict (partially upheld)**: **S-F1 PASS** (strong candidates {F1 d=+1.94, F3 d=−3.18, F7 dfa d=−1.13} — F1/F3 priority verified); **S-F2 FAIL** (F4 lag1 d=−0.31 — "thinking inertia" weak — but **lag2 d=+1.02 rhythmicity signal**); **S-F3 PASS** (top-3={F3,F1,F2}).
-
-**Priority ranking (guides subsequent experiments)**:
-1. **F3 ratio_unit (0.90)** — propulsion concentration — strongest d but shrinks on the independent set (v0.80 direction retained)
-2. **F1 α distribution (0.76)** — along-axis propulsion — stable strong candidate (same source as jump) — **F1_mean_signed d=+0.80 (humans advance forward more — direction preference is a signal beyond magnitude)**
-3. **F2 ε distribution (0.52)** — perpendicular component has NO discrimination (d=−0.11 — ratio_unit's power comes from the parallel component) — constraint only
-4. **F4 autocorrelation (0.41)** — lag2 d=+1.02 rhythmicity candidate (pending independent validation)
-5. **F7 DFA/Hurst (0.32)** — d=−1.13 but scaling exponent questionable (short-series bias — α_D=0.03 implausibly low)
-6. **Frequency domain null** (F6/F8/F9 d≈0 — validates "do not engineer frequency features")
-
-**Method**: intervention evidence from 201 existing runs offline (vt_gate_beam primary contrast — zero new generation); BH-FDR multiple-comparison correction; preregistered fixed bands; F1 direction-sign subfeatures (review absorbed).
-
-### 6.6.7 Math-Operation Geometry Pre-test (v0.85 — minimum threshold not met — digit-range hidden-feature evidence)
-
-**Question (user)**: do math-operation symbol/digit combinations have distinguishable geometric structure in intent space? — 4 operation classes (add/sub/mul/div × 24 — seed 2026) — structured transcription — bge→fingerprint — **placeholder-word baseline control** (lexical classification trap).
-
-**Round 1 (raw digits)**: operation texts highly separable (LDA acc 0.990) — **but the placeholder baseline also separable (0.927) — Δacc=+0.06 fails the line** — **separability driven mainly by C-range distribution** (add [40,165]/sub [2,78]/mul [110,8366]/div [1,32] — BGE numeric sensitivity — digit surface features) — operator-semantics increment not evidenced.
-
-**Round 2 (bin-mapping fix — digits→small/medium/large 3 bins — removes range differences, preserves within-class diversity) — decisive reversal**:
-
-| metric | true words | placeholder baseline | Δ |
+| Metric | Real arm | Placeholder arm (same Ĉ) | Criterion |
 |---|---|---|---|
-| silhouette | **0.551** | 0.188 | **+0.363** |
-| LDA acc | 1.000 | 1.000 | 0.000 (saturated) |
-| permutation | p<0.001 | — | — |
+| residual-space within | 0.092 (≈ random baseline 0.10) | 0.279 | M-C1 ✗ (needs ≥0.5) |
+| g | 0.147 | 0.221 | M-C2 ✗ (just under 0.15) |
+| Δg | — | −0.074 (CI [−0.124, −0.022] — significantly negative) | M-C2 ✗ |
+| label permutation p | 0.0000 | — | separation exists but template-carried |
+| cross-op shuffle p | 0.952 | — | M-C1 ✗ |
+| level-wise Δg | d12 +0.015 / **d23 (Chinese word→symbol) +0.105** / d34 −0.036 | — | d23 marginal positive |
+| M-C3 alignment | division·D_shared 0.296 (CI [0.227,0.342]); all flagged dims in HUMAN_ORG (dim11/34) | — | report-only |
+| 512-d support arm | g 0.201 | Δg −0.104 (perm p=0.000) | report-only (same pattern) |
 
-**Binned M-A1 PASS** (sil=0.551>0.25 ∧ Δsil=+0.363>0.10 ∧ permutation significant) — **the user's condition is exactly met: "after digit masking, the true-word four classes still separate AND exceed the placeholder baseline — operator semantics does have independent geometric structure"**. Mechanism: digit-range differences are a strong surface feature (masking the operator-semantics contribution) — bin-mapping strips the surface feature — **the operator semantics' independent separation emerges clearly (sil Δ=+0.363) — minimum threshold passed — the formal "math-logical intent" analysis is worth launching** (real derivation trajectories / higher-math composition need subsequent validation). Methodological value: **digit bin-mapping = the standard fix for removing numeric surface features in symbolic-text classification experiments**; full masking collapses within-class variance (template degeneration — sil=1.0 mathematically forced — bin-mapping preserves within-class diversity).
-
-### 6.6.8 Mainline: F1/F3 beam-selection intervention (v0.85-6 — F1 direction effective — F3 not)
-
-**Task (user mainline)**: add F1 (along-axis propulsion) / F3 (ratio_unit) to beam selection — small intervention comparison (beam5_f1f3 vs beam5 — 6 pairs — score = sent_proj + 0.3·(s_f1+s_f3)).
-
-**Result (honest)**:
-- **F1 direction effective**: along-axis propulsion 1.267 → **1.307 (+3.2% — generated text advances more along the axis)**
-- **sent_proj not degraded** (0.893 → 0.883 — within −0.01 line, marginally)
-- **F3 not effective** (ratio_unit slightly up — candidates positively correlated with F1 or insufficient operating room — **F3 not a beam-scoring feature**)
-- Implementation lessons: short-segment F1 scale shift (0.4–1.1 vs human 1.47 — normalization needs short-text reference); candidate clause-split exception (split_subclauses fix)
-
-**Conclusion**: **F1 usable as a beam-scoring feature (mild — inference-time layer) — F3 has no operating room** — inference-time beam selection is partially saturated at the organizational layer (sent_proj captures most) — F1 fusion gives small increment — **training-time loss (F1 distribution matching) remains the main path for changing the organizational layer**.
-
-### 6.6.9 Math side-line consolidation (v0.85-7 — bin-mapping robust / real texts 1/3 / trajectory data gap)
-
-- **Bin-mapping robustness**: 4 cut/binning variants all PASS (Δsil +0.16~+0.29) — "operator-semantics independent structure" robust under discretization — normalized-decimal FAIL due to vmax under-coverage (multiplication C-range exceeds — design flaw, not counter-evidence)
-- **Real derivation texts**: 1/3 PASS — vertical arithmetic (verb-like operator semantics) has extra structure — application problems/equations differ by digit-combination patterns (placeholder replacement equally separable) — **template-arithmetic PASS does not generalize to real texts — formal math-intent analysis evidence limited**
-- **Trajectory-feature data gap**: single math texts too short (<15 diffs) — jump density/α/ratio_unit incalculable — needs long math-derivation corpus
-
-### 6.6 Jump Mechanism and Controllable Variables (v0.82 — why AI jumps less)
-
-**Determinism audit**: jump detection is deterministically correct — no segment-boundary confound (80%+ of jumps inside segments), no clause-length bias (ρ≈0), **jump-dominant dims = [11,13,17,36,42,55...] (identical human/AI — overlapping the axis top-dims — jumps are along-axis propulsion confirmed)**, model factor small (DS 7.4 vs Qwen 8.1 per 100 clauses — "AI jumps less" is a paradigm-wide property), semantic validation = real content turns (character introduction / dialogue switch / scene transition).
-
-**Controllable variables (mechanism chain closed)**:
-- **beam search: −39% jump density** (9.88→6.04 per 100 clauses — deterministic selection smooths trajectories)
-- **vt virtual-token injection: +37%** (9.88→13.51)
-- **temperature: no significant monotonic effect** (8-run sweep 0.6–1.5 — Spearman p=0.77 — non-monotonic — weak/uncertain)
-- **Language organization**: AI clauses shorter (9.9 vs 12.1), fewer pronouns (weak reference chains), half the connectives — yet **higher lexical diversity (0.972 vs 0.963) with fewer jumps — "static lexical diversity vs dynamic trajectory propulsion" separation** — AI's ornamentation lives in the lexical (static) layer, its propulsion deficit in the trajectory (dynamic) layer — char_diversity×jump-density ρ=+0.33 (p<0.001)
-- **Mechanism**: "AI jumps less" = sampling determinism (beam-class strategies) + weakened language organization (short clauses / weak reference / fewer connectives) → missing trajectory propulsion — controllable variables concentrate in **decoding-strategy layer (inference-time — beam/vt injection) and loss terms (training-time — engine todo 4)**
+**Conclusion (REJECTED — converged wording)**: The collapse direction is **not** confirmed as operation-specific: ① residual-space within = 0.092 ≈ random baseline — after removing the common jump, op-specific residual directions are unstable across ladders (M-C1 fails badly); ② **Δg significantly negative** — the placeholder arm separates *more* — real operator words/symbols add no increment and destabilize the directions; ③ op separation exists (label permutation p=0.000) but is fully explained by the L1 entity-layer templates (shared by both arms, op-specific by construction) — **the "abstraction process adds operation-specific geometry" hypothesis is not supported in this space**; ④ narrow positives (do not change the verdict, report-only): d23 symbol-transition Δg=+0.105 (marginal), division direction aligned with D_shared, all flagged dims in HUMAN_ORG; ⑤ the structure (or its absence) lives in bge semantics — the 512-d arm shows the same pattern, the discriminator does not transform it. Methodological assets: shared content pool / same-Ĉ residualization / cross-op shuffle null / level-wise Δg / unbiased bootstrap.
 
 ## 7. Boundaries and Decoupling (Engine Positioning)
 

@@ -144,11 +144,12 @@ def sil_acc(X, labels, n_comp=0.95):
         knn.fit(np.delete(Xn, i, 0), np.delete(labels, i))
         preds_k.append(knn.predict(Xn[i:i + 1])[0])
     acc_knn = float(accuracy_score(labels, preds_k))
-    # 类中心距离比（评审 11：仅报告不判据）
-    centers = np.array([Xn[labels == k].mean(0) for k in range(4)])
+    # 类中心距离比（评审 11：仅报告不判据）——类数自适应（v0.85-5 修复）
+    n_cls = int(np.max(labels)) + 1
+    centers = np.array([Xn[labels == k].mean(0) for k in range(n_cls)])
     centers = l2norm(centers)
     inter = np.mean([1 - c1 @ c2 for i, c1 in enumerate(centers) for c2 in centers[i + 1:]])
-    intra = np.mean([1 - Xn[labels == k] @ centers[k] for k in range(4)])
+    intra = np.mean([1 - Xn[labels == k] @ centers[k] for k in range(n_cls)])
     return {'sil': sil, 'acc_lda': acc_lda, 'acc_knn': acc_knn,
             'center_ratio': round(float(inter / (intra + 1e-9)), 3),
             'inter_cos': round(float(inter), 3), 'intra_cos': round(float(intra), 3)}
@@ -364,8 +365,8 @@ def main():
                    'ph_sil': st_mp['sil'], 'ph_acc': st_mp['acc_lda'],
                    'delta_sil': round(float(delta_mt), 3),
                    'delta_acc': round(float(delta_ma), 3),
-                   'perm': perm_m, 'm_a1_masked': bool(m_a1_masked),
-                   'note': '全掩码类内零方差——sil=1.0 数学必然——口径仅诊断'},
+                   'perm': perm_m, 'm_a1_masked': False,
+                   'note': '全掩码类内零方差——sil=1.0 数学必然——M-A1 不适用——口径仅诊断'},
         'binned': {'true_sil': st_bt['sil'], 'true_acc': st_bt['acc_lda'],
                    'ph_sil': st_bp['sil'], 'ph_acc': st_bp['acc_lda'],
                    'delta_sil': round(float(delta_bt), 3),
