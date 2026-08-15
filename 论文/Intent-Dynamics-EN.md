@@ -251,6 +251,19 @@ dim48/dim10 perturbations change reference/topic organization of generated text 
 4. **Training-time** (— the right path after the v0.78 negative result): dim48/dim10 as loss terms (φ jointly optimized with LM — eliminating OOD injection) — inference-time injection cannot change the generated trajectory itself; training-time regularization shapes the trajectory directly — grounded in R's faithful following of F (the surface trajectory is the observation of root intent — changing the trajectory = changing root intent)
 5. **Verification**: end-to-end generation → five flow metrics (jump/turn/Hurst/TE/coupling) should approach the human portrait — the engine's acceptance criterion
 
+### 6.5 Intent-Axis Hypothesis Test (v0.79 — binary negation — continuum correction — offline)
+
+**Hypothesis**: human jump d=+2.16 may not be random jumps — a "root-intent axis" D exists in the high-dim space — humans advance along the axis (directed change) — AI drifts isotropically without direction ("directed propulsion vs directionless diffusion").
+
+**Verdict (criteria C1–C8 preregistered — overall: NEGATED)**:
+- **Both groups have a strong axis**: difference-pool PC1 explained variance human 0.663 / AI 0.596 (isotropic surrogate baseline 0.018 — 36× above) — group axes nearly aligned **cos(D_h, D_a)=0.985** — the axis is an inherent structure of the discriminator space (dominant direction of fp space) — the "humans have an axis, AI does not" dichotomy fails
+- **The real difference is a continuum**: direction consistency align_cos (amplitude-free — mean|û·D|) human 0.632 vs AI 0.581 (d=+2.56); **propulsion concentration ratio_unit=j_perp/j_par human 0.086 vs AI 0.105 (d=−3.18 — a stronger discriminator than jump d=+2.16)** — "**humans advance flatter along the axis; AI spreads rounder**"
+- **Memory is not on the difference axis**: H(α)human−H(ε)human=−0.04 (α Hurst 0.13–0.17 — RS downward bias) — long-range memory (Hurst 0.62) is a state-level structure of activations, not a difference-direction structure
+- **New discriminative signal**: inter-group mean-drift directions opposite (cos(μ_h,μ_a)=−0.29)
+- Exploratory consistency hit: within-human Spearman(align_cos, j_par)=+0.745 (p=0.013 — old "jump" = axis propulsion, within-group evidence)
+
+**Implication for the engine**: axis D is a shared structure — planner axis-coordinate targets (align_cos/ratio_unit human bands) should target the **organization of propulsion** (concentration/drift direction), not axis existence — "propulsion concentration" is a candidate new discriminative feature (d=−3.18 > jump d=+2.16) — formal inclusion requires independent test-set validation.
+
 ## 7. Boundaries and Decoupling (Engine Positioning)
 
 The engine is confined to the **organizational layer** (focus/undulation/cohesion/memory — flow metrics). Three decoupling findings:
