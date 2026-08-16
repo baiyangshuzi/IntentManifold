@@ -1,0 +1,121 @@
+{
+ "meta": {
+  "seed": 20260817,
+  "n_pairs": 96,
+  "groups": "A 算式/4类×8 + B 应用题/4类×8 + C 方程/2类×16",
+  "error_rules": "e≠c, |e−c|∈[1,max(2,c//10)], 同位数, 同奇偶, 同大小档, e≥0",
+  "design_note": "按对 LOO——LR 主估计器嵌套选 C——置换 null 固定 C——M-M3 正确值池重分配决定性控制"
+ },
+ "p0": {
+  "n_texts": 192,
+  "n_pairs": 96,
+  "ks_p": 0.9621,
+  "overlap_frac": 0.4884,
+  "direction_balance": {
+   "A": 16,
+   "B": 16,
+   "C": 16
+  },
+  "asserts": "单token差异/奇偶恒定/同档/无重复/方向平衡——全过"
+ },
+ "features": {
+  "fp_std_lt005_frac": 0.25,
+  "bge_std_min": 0.008724
+ },
+ "m_m1": {
+  "acc": 0.4167,
+  "perm_p": 0.6913,
+  "perm_p95": 0.5938,
+  "perm_mean_null": 0.5002,
+  "boot_ci": [
+   0.3229,
+   0.5208
+  ],
+  "group_acc": {
+   "A": 0.5625,
+   "B": 0.375,
+   "C": 0.3125
+  },
+  "fold_type_counts": {
+   "1.0": 40,
+   "0.5": 0,
+   "0.0": 56
+  },
+  "acc_fixed_C_control": 0.4792,
+  "c_sensitivity": 0.0625,
+  "pass": false
+ },
+ "m_m2": {
+  "bge": {
+   "acc": 0.401,
+   "perm_p": 0.9967,
+   "group_acc": {
+    "A": 0.3906,
+    "B": 0.4688,
+    "C": 0.3438
+   }
+  },
+  "fp": {
+   "acc": 0.5104,
+   "perm_p": 0.6445,
+   "group_acc": {
+    "A": 0.5312,
+    "B": 0.4062,
+    "C": 0.5938
+   }
+  },
+  "struct": {
+   "acc": 0.5,
+   "perm_p": 1.0,
+   "group_acc": {
+    "A": 0.5,
+    "B": 0.5,
+    "C": 0.5
+   }
+  },
+  "all": {
+   "acc": 0.4167,
+   "perm_p": 0.6844,
+   "group_acc": {
+    "A": 0.5625,
+    "B": 0.375,
+    "C": 0.3125
+   }
+  },
+  "delta_fusion": -0.0937
+ },
+ "m_m3": {
+  "verdict": "skipped（M-M1 FAIL——预注册条件门未触发）",
+  "note": "预注册条件门：M-M1 FAIL 不执行"
+ },
+ "m_m4": {
+  "kappa_bge": 0.0459,
+  "kappa_fp": 0.0599
+ },
+ "mlp_robust": {
+  "bge": {
+   "acc5_mean": 0.2914,
+   "acc5_std": 0.0534
+  },
+  "fp": {
+   "acc5_mean": 0.3964,
+   "acc5_std": 0.0658
+  },
+  "struct": {
+   "acc5_mean": 0.5107,
+   "acc5_std": 0.0346
+  },
+  "all": {
+   "acc5_mean": 0.3753,
+   "acc5_std": 0.0638
+  }
+ },
+ "knn1": {
+  "bge": 0.1667,
+  "all": 0.1562
+ },
+ "verdict": {
+  "overall": "REJECTED",
+  "interpretation": "按对分割下，bge 语义嵌入/风格指纹/手写表面结构对数学推理对错无可读判别（acc ≤ 0.60，置换不显著——功率范围 θ ≤ 0.65）——文本表面表征不承载结果-操作数运算关系——数学逻辑判定需专用结构表征或符号计算——架构分离主张获反向支持（与 v0.88 Δg 显著为负一致）"
+ }
+}

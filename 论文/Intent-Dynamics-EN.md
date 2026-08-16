@@ -268,6 +268,25 @@ dim48/dim10 perturbations change reference/topic organization of generated text 
 
 **Conclusion (REJECTED — converged wording)**: The collapse direction is **not** confirmed as operation-specific: ① residual-space within = 0.092 ≈ random baseline — after removing the common jump, op-specific residual directions are unstable across ladders (M-C1 fails badly); ② **Δg significantly negative** — the placeholder arm separates *more* — real operator words/symbols add no increment and destabilize the directions; ③ op separation exists (label permutation p=0.000) but is fully explained by the L1 entity-layer templates (shared by both arms, op-specific by construction) — **the "abstraction process adds operation-specific geometry" hypothesis is not supported in this space**; ④ narrow positives (do not change the verdict, report-only): d23 symbol-transition Δg=+0.105 (marginal), division direction aligned with D_shared, all flagged dims in HUMAN_ORG; ⑤ the structure (or its absence) lives in bge semantics — the 512-d arm shows the same pattern, the discriminator does not transform it. Methodological assets: shared content pool / same-Ĉ residualization / cross-op shuffle null / level-wise Δg / unbiased bootstrap.
 
+### 6.6.11 Correctness Discriminability of Arithmetic Claims in Text-Surface Representations (v0.89 — semantic-layer sideline — parity-matched injection — per-pair LOO — REJECTED — architectural separation supported)
+
+**Question (user — architectural separation)**: language (BGE) and mathematical-logic encoders are claimed to be structurally different classes (inductive biases: function composition / operator action / formal transformation vs lexical co-occurrence / topic / reference) and should be separated. Step ① of the user's four-step route: concatenate BGE semantic features + lightweight math-structure features → train a "math correctness discriminator." This experiment measures the **upper bound of correctness discriminability in text-surface representations** (bge semantics / style fingerprints / hand-written structure) — two-way pre-registration (FAIL expected → supports separation; PASS → route ② CodeBERT).
+
+**Design** (criteria pre-registered — 4 review points frozen): 96 pairs (3 groups × 32: transcription 4 ops × 8 / word problems 4 ops × 8 / assertion-form equations 2 types × 16 — derivation clauses removed to kill the "internal consistency ⇒ correctness" isomorphism cue; vertical-arithmetic group excluded: stated-unit consistency cue ≈90%); **five-constraint error injection**: e≠c, |e−c|∈[1,max(2,c//10)], **same digit count**, **same parity** (without it, operand-determined result parity yields a 75% cue — pure surface rule, zero arithmetic — the most severe false-PASS hole), **same size-bin** (cross-bin leakage); direction balance 16/16; per-pair single-token-difference hard assertion (a real trap was caught: the equation template's R=x+b textual binding made two digits differ — rebuilt with the true value fixed so wrong texts need real arithmetic to detect); **per-pair LOO** (pair identity never leaks); LR primary estimator (nested C selection for the observed acc — fixed C=1.0 for the permutation null — parameter-sensitivity double check Δ=0.0625 honestly reported); 1000 label permutations p=(1+#{≥obs})/1001; M-M3 correct-value-pool reassignment as a conditional gate (only fires on PASS).
+
+**Results (honest)**:
+
+| Metric | Value | Criterion |
+|---|---|---|
+| M-M1 (F_all per-pair LOO) | acc=0.4167 (< 0.60 gate); permutation p=0.6913; CI [0.323, 0.521] | **FAIL** |
+| M-M2 feature decomposition | bge 0.401 / fp 0.510 / struct 0.500 / all 0.417 — Δf = −0.094 | all ≈ chance (p ≥ 0.64) |
+| M-M3 value-pool control | skipped (M-M1 FAIL — pre-registered conditional gate not fired) | gate |
+| M-M4 within-pair direction κ | bge 0.046 / fp 0.060 (random baseline 0.016) | report-only |
+| MLP / KNN-1 robustness | MLP 0.29–0.51 (all ≈ chance); KNN 0.16 (below chance — within-pair similarity structural) | report-only |
+| F_fp degeneracy check | std<0.05 fraction 0.250 (non-degenerate) | report-only |
+
+**Conclusion (REJECTED — converged wording)**: Under per-pair splitting, bge semantic embeddings, style fingerprints, and hand-written surface structure show **no readable correctness signal** for arithmetic claims (acc ≤ 0.60, permutation non-significant — power range θ ≤ 0.65, not "absolutely no signal") — text-surface representations do not carry the result–operand relation — correctness judgment requires **dedicated structural representations or symbolic computation** — **the architectural-separation claim receives reverse support**: together with v0.88's significantly negative Δg, the language space carries neither operation geometry (v0.88) nor operation correctness (v0.89). The user's route ② (CodeBERT second encoder) and route ③ (dedicated correctness discriminator over symbol-structure data) are empirically motivated as the next steps.
+
 ## 7. Boundaries and Decoupling (Engine Positioning)
 
 The engine is confined to the **organizational layer** (focus/undulation/cohesion/memory — flow metrics). Three decoupling findings:
