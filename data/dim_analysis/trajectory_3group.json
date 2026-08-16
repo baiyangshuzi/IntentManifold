@@ -1,0 +1,838 @@
+{
+ "meta": {
+  "seed": 20260818,
+  "p90": 3.2286083698272705,
+  "note": "探索性——不正式判定——报告集预注册见脚本头"
+ },
+ "groups": {
+  "N-long": {
+   "n": 10,
+   "metrics": {
+    "density": {
+     "mean": 12.0766,
+     "med": 11.9246,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "gap_cv": {
+     "mean": 1.0814,
+     "med": 1.0438,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "burst": {
+     "mean": 31.9389,
+     "med": 32.2971,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "abs_amp": {
+     "mean": 3.8811,
+     "med": 3.8837,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "rel_amp": {
+     "mean": 2.1401,
+     "med": 2.1235,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d10_turn_density": {
+     "mean": 0.6721,
+     "med": 0.6742,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d10_steep_norm": {
+     "mean": 1.641,
+     "med": 1.6535,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d10_depth_norm": {
+     "mean": 1.6578,
+     "med": 1.6511,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d48_turn_density": {
+     "mean": 0.6589,
+     "med": 0.6621,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d48_steep_norm": {
+     "mean": 1.6684,
+     "med": 1.6796,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "coupling": {
+     "mean": 0.5077,
+     "med": 0.5193,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "ratio_unit": {
+     "mean": 0.0868,
+     "med": 0.0883,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d10_lag1": {
+     "mean": 0.0667,
+     "med": 0.0754,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d48_lag1": {
+     "mean": 0.0371,
+     "med": 0.0343,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d10_hurst": {
+     "mean": 0.6465,
+     "med": 0.6331,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    }
+   }
+  },
+  "N-win": {
+   "n": 10,
+   "metrics": {
+    "density": {
+     "mean": 17.9167,
+     "med": 14.5833,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "gap_cv": {
+     "mean": 0.7263,
+     "med": 0.6888,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 7
+    },
+    "burst": {
+     "mean": 36.875,
+     "med": 50.0,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 8
+    },
+    "abs_amp": {
+     "mean": 3.8403,
+     "med": 3.7713,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 9
+    },
+    "rel_amp": {
+     "mean": 1.9837,
+     "med": 1.9959,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 9
+    },
+    "d10_turn_density": {
+     "mean": 0.6522,
+     "med": 0.6304,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d10_steep_norm": {
+     "mean": 1.6894,
+     "med": 1.7408,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d10_depth_norm": {
+     "mean": 1.7055,
+     "med": 1.6969,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d48_turn_density": {
+     "mean": 0.713,
+     "med": 0.6957,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d48_steep_norm": {
+     "mean": 1.6686,
+     "med": 1.7317,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "coupling": {
+     "mean": 0.5382,
+     "med": 0.5348,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "ratio_unit": {
+     "mean": 0.0876,
+     "med": 0.0911,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d10_lag1": {
+     "mean": -0.0342,
+     "med": 0.0373,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d48_lag1": {
+     "mean": -0.0464,
+     "med": -0.0385,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d10_hurst": {
+     "mean": 0.0967,
+     "med": 0.1509,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    }
+   }
+  },
+  "T": {
+   "n": 10,
+   "metrics": {
+    "density": {
+     "mean": 1.9151,
+     "med": 0.0,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "gap_cv": {
+     "mean": 0.7318,
+     "med": 0.7318,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 1
+    },
+    "burst": {
+     "mean": 60.0,
+     "med": 60.0,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 2
+    },
+    "abs_amp": {
+     "mean": 4.1997,
+     "med": 4.2923,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 4
+    },
+    "rel_amp": {
+     "mean": 2.7194,
+     "med": 2.6523,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 4
+    },
+    "d10_turn_density": {
+     "mean": 0.6772,
+     "med": 0.6748,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d10_steep_norm": {
+     "mean": 1.5993,
+     "med": 1.6262,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d10_depth_norm": {
+     "mean": 1.5716,
+     "med": 1.5451,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d48_turn_density": {
+     "mean": 0.6438,
+     "med": 0.6603,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d48_steep_norm": {
+     "mean": 1.4376,
+     "med": 1.5061,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "coupling": {
+     "mean": 0.4582,
+     "med": 0.5261,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "ratio_unit": {
+     "mean": 0.0947,
+     "med": 0.0975,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d10_lag1": {
+     "mean": 0.1773,
+     "med": 0.1947,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d48_lag1": {
+     "mean": 0.1905,
+     "med": 0.1816,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    },
+    "d10_hurst": {
+     "mean": 0.7392,
+     "med": 0.7886,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 10
+    }
+   }
+  },
+  "R": {
+   "n": 20,
+   "metrics": {
+    "density": {
+     "mean": 3.7419,
+     "med": 0.0,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 20
+    },
+    "gap_cv": {
+     "mean": 0.4639,
+     "med": 0.5345,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 3
+    },
+    "burst": {
+     "mean": 38.8889,
+     "med": 50.0,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 3
+    },
+    "abs_amp": {
+     "mean": 3.451,
+     "med": 3.5156,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 5
+    },
+    "rel_amp": {
+     "mean": 2.0681,
+     "med": 1.9872,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 5
+    },
+    "d10_turn_density": {
+     "mean": 0.7041,
+     "med": 0.7212,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 20
+    },
+    "d10_steep_norm": {
+     "mean": 1.7923,
+     "med": 1.8306,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 20
+    },
+    "d10_depth_norm": {
+     "mean": 1.9697,
+     "med": 2.0362,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 20
+    },
+    "d48_turn_density": {
+     "mean": 0.6974,
+     "med": 0.7098,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 20
+    },
+    "d48_steep_norm": {
+     "mean": 1.7627,
+     "med": 1.825,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 20
+    },
+    "coupling": {
+     "mean": 0.3561,
+     "med": 0.3546,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 20
+    },
+    "ratio_unit": {
+     "mean": 0.1065,
+     "med": 0.1036,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 20
+    },
+    "d10_lag1": {
+     "mean": null,
+     "med": null,
+     "ci": null,
+     "n": 0
+    },
+    "d48_lag1": {
+     "mean": null,
+     "med": null,
+     "ci": null,
+     "n": 0
+    },
+    "d10_hurst": {
+     "mean": null,
+     "med": null,
+     "ci": null,
+     "n": 0
+    }
+   }
+  },
+  "R-pseudo": {
+   "n": 5,
+   "metrics": {
+    "density": {
+     "mean": 6.1029,
+     "med": 6.25,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 5
+    },
+    "gap_cv": {
+     "mean": null,
+     "med": null,
+     "ci": null,
+     "n": 0
+    },
+    "burst": {
+     "mean": 0.0,
+     "med": 0.0,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 2
+    },
+    "abs_amp": {
+     "mean": 3.5924,
+     "med": 3.6389,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 3
+    },
+    "rel_amp": {
+     "mean": 1.7752,
+     "med": 1.7746,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 3
+    },
+    "d10_turn_density": {
+     "mean": 0.6583,
+     "med": 0.6667,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 5
+    },
+    "d10_steep_norm": {
+     "mean": 1.7796,
+     "med": 1.8632,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 5
+    },
+    "d10_depth_norm": {
+     "mean": 1.6707,
+     "med": 1.6964,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 5
+    },
+    "d48_turn_density": {
+     "mean": 0.7108,
+     "med": 0.6875,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 5
+    },
+    "d48_steep_norm": {
+     "mean": 2.1616,
+     "med": 2.18,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 5
+    },
+    "coupling": {
+     "mean": 0.4581,
+     "med": 0.6161,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 5
+    },
+    "ratio_unit": {
+     "mean": 0.0894,
+     "med": 0.0706,
+     "ci": [
+      NaN,
+      NaN
+     ],
+     "n": 5
+    },
+    "d10_lag1": {
+     "mean": null,
+     "med": null,
+     "ci": null,
+     "n": 0
+    },
+    "d48_lag1": {
+     "mean": null,
+     "med": null,
+     "ci": null,
+     "n": 0
+    },
+    "d10_hurst": {
+     "mean": null,
+     "med": null,
+     "ci": null,
+     "n": 0
+    }
+   }
+  }
+ },
+ "cohens_d": {
+  "R-N-win": {
+   "density": -1.238,
+   "gap_cv": -1.162,
+   "burst": 0.07,
+   "abs_amp": -1.665,
+   "rel_amp": 0.251,
+   "d10_turn_density": 0.573,
+   "d10_steep_norm": 0.333,
+   "d10_depth_norm": 0.782,
+   "d48_turn_density": -0.15,
+   "d48_steep_norm": 0.415,
+   "coupling": -0.92,
+   "ratio_unit": 1.366
+  },
+  "T-N-win": {
+   "density": -1.53,
+   "gap_cv": 0.036,
+   "burst": 0.658,
+   "abs_amp": 0.709,
+   "rel_amp": 1.324,
+   "d10_turn_density": 0.271,
+   "d10_steep_norm": -0.347,
+   "d10_depth_norm": -0.523,
+   "d48_turn_density": -0.889,
+   "d48_steep_norm": -1.092,
+   "coupling": -0.463,
+   "ratio_unit": 0.509,
+   "d10_lag1": 0.987,
+   "d48_lag1": 1.28,
+   "d10_hurst": 1.346
+  },
+  "R-T": {
+   "density": 0.323,
+   "gap_cv": -1.588,
+   "burst": -0.609,
+   "abs_amp": -1.605,
+   "rel_amp": -1.365,
+   "d10_turn_density": 0.255,
+   "d10_steep_norm": 0.835,
+   "d10_depth_norm": 1.511,
+   "d48_turn_density": 0.501,
+   "d48_steep_norm": 1.521,
+   "coupling": -0.51,
+   "ratio_unit": 0.935
+  }
+ },
+ "shuffle_delta": {
+  "N-win": {
+   "density": 0.481,
+   "gap_cv": 0.253,
+   "burst": 0.219,
+   "turn_density": 0.107,
+   "coupling": 0.115
+  },
+  "T": {
+   "density": 1.25,
+   "gap_cv": 0.131,
+   "burst": 0.687,
+   "turn_density": 0.076,
+   "coupling": 0.109
+  },
+  "R": {
+   "density": 0.0,
+   "gap_cv": NaN,
+   "burst": NaN,
+   "turn_density": 0.118,
+   "coupling": 0.472
+  }
+ },
+ "domain": {
+  "N-win": {
+   "style_mean": 0.4375210106372833,
+   "style_med": 0.48000454902648926,
+   "maha_med": 40.26043948886472
+  },
+  "T": {
+   "style_mean": 1.1798101663589478,
+   "style_med": 1.2482789754867554,
+   "maha_med": 33.230025539703604
+  },
+  "R": {
+   "style_mean": -0.1116853877902031,
+   "style_med": -0.13363829255104065,
+   "maha_med": 40.32827009545925
+  },
+  "N-long_h": {
+   "style_mean": 0.48520734906196594
+  },
+  "N-long_a": {
+   "style_mean": -0.48520737886428833
+  }
+ },
+ "residual_sil": {
+  "sil_64": 0.015140785835683346,
+  "sil_11": 0.00021154522255528718,
+  "sil_resid": -0.016819264739751816,
+  "n_each": [
+   250,
+   400,
+   301
+  ]
+ },
+ "d_res": {
+  "R-N-win_density": -0.88,
+  "R-N-win_gap_cv": -0.858,
+  "R-N-win_burst": 0.28,
+  "R-N-win_coupling": -0.542,
+  "T-N-win_density": -0.933,
+  "T-N-win_burst": 0.1,
+  "T-N-win_coupling": -0.511
+ },
+ "q2": {
+  "R0": {
+   "n_seg": 17,
+   "n_logic": 3,
+   "n_jump": 3,
+   "jump_logic_hit": 0,
+   "lift": 0.0,
+   "concl_hit": false,
+   "concl_idx": 15
+  },
+  "R1": {
+   "n_seg": 14,
+   "n_logic": 0,
+   "n_jump": 0,
+   "jump_logic_hit": 0,
+   "lift": 0.0,
+   "concl_hit": false,
+   "concl_idx": 12
+  },
+  "T0": {
+   "n_seg": 25,
+   "n_logic": 4,
+   "n_jump": 0,
+   "jump_logic_hit": 0,
+   "lift": 0.0,
+   "concl_hit": false,
+   "concl_idx": null
+  },
+  "T1": {
+   "n_seg": 39,
+   "n_logic": 0,
+   "n_jump": 0,
+   "jump_logic_hit": 0,
+   "lift": 0.0,
+   "concl_hit": false,
+   "concl_idx": null
+  }
+ }
+}
