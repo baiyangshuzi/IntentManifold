@@ -1,0 +1,9 @@
+{"cycle": 1, "step": 16, "lam_eff": 0.1, "g_lm": 1.0, "g_it": 1.0, "secs": 5.5, "ppl": 30.82959419814841, "readability": {"rep4_ratio": 0.05, "unit_len_mean": 20.0}}
+{"cycle": 2, "step": 32, "lam_eff": 0.1, "g_lm": 1.0, "g_it": 1.0, "secs": 5.3, "ppl": 31.2567002978182, "readability": {"rep4_ratio": 0.05, "unit_len_mean": 20.0}}
+{"cycle": 3, "step": 48, "lam_eff": 0.1, "g_lm": 1.0, "g_it": 1.0, "secs": 5.4, "ppl": 32.15909659845335, "readability": {"rep4_ratio": 0.05, "unit_len_mean": 20.0}}
+{"cycle": 4, "step": 64, "lam_eff": 0.1, "g_lm": 1.0, "g_it": 1.0, "secs": 5.3, "ppl": 33.61841061093505, "readability": {"rep4_ratio": 0.05, "unit_len_mean": 20.0}}
+{"cycle": 5, "step": 80, "lam_eff": 0.1, "g_lm": 1.0, "g_it": 1.0, "secs": 5.4, "ppl": 35.21512529697785, "readability": {"rep4_ratio": 0.05, "unit_len_mean": 20.0}}
+{"cycle": 6, "step": 96, "lam_eff": 0.1, "g_lm": 1.0, "g_it": 1.0, "secs": 5.4, "ppl": 35.9931165401669, "readability": {"rep4_ratio": 0.05, "unit_len_mean": 20.0}}
+{"cycle": 7, "step": 112, "lam_eff": 0.1, "g_lm": 1.0, "g_it": 1.0, "secs": 5.4, "ppl": 37.835078042271626, "readability": {"rep4_ratio": 0.05, "unit_len_mean": 20.0}}
+{"cycle": 8, "step": 128, "lam_eff": 0.1, "g_lm": 1.0, "g_it": 1.0, "secs": 5.5, "ppl": 38.76495793416291, "readability": {"rep4_ratio": 0.05, "unit_len_mean": 20.0}}
+{"done": true, "mode": "control", "step": 128}

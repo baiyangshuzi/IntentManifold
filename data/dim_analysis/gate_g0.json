@@ -1,0 +1,38 @@
+{
+ "gate": true,
+ "matches": 3,
+ "metrics": {
+  "alpha_abs": {
+   "pos_mean": 1.1058012608091083,
+   "neg_mean": 1.06118826688193,
+   "direction": "pos>neg",
+   "human_dir": "up",
+   "match": true,
+   "U_p": 0.6314188141870205
+  },
+  "ratio": {
+   "pos_mean": 0.09785577628219258,
+   "neg_mean": 0.09958194389931654,
+   "direction": "pos<neg",
+   "human_dir": "down",
+   "match": true,
+   "U_p": 0.36764689240764936
+  },
+  "density": {
+   "pos_mean": 3.7250418936235414,
+   "neg_mean": 2.6581364021668374,
+   "direction": "pos>neg",
+   "human_dir": "up",
+   "match": true,
+   "U_p": 0.19619758719530567
+  }
+ },
+ "verdict": "G0 通过（3/3 方向与 bilingual 锚一致）",
+ "n_pos": 73,
+ "n_neg": 113,
+ "anchors": {
+  "alpha": "1.4746 vs 1.2989",
+  "ratio": "0.0863 vs 0.1048",
+  "density": "12.08 vs 7.74"
+ }
+}

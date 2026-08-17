@@ -1,0 +1,75 @@
+{
+ "g1": "降级通过",
+ "worst_err_long": 0.35996118934908117,
+ "errs_long": {
+  "alpha_abs": 0.03899482253482271,
+  "ratio": 0.35996118934908117,
+  "density": 0.11894086806028388
+ },
+ "errs_all": {
+  "alpha_abs": 0.24627208985353122,
+  "ratio": 0.37720431185232395,
+  "density": 0.49621257478777964
+ },
+ "errs_by_type": {
+  "bilzh": {
+   "alpha_abs": 0.03899482253482271,
+   "ratio": 0.35996118934908117,
+   "density": 0.11894086806028388
+  },
+  "intent": {
+   "alpha_abs": 0.2653361672220056,
+   "ratio": 0.4446385755026403,
+   "density": 0.0666666666666667
+  },
+  "selfgen": {
+   "alpha_abs": 0.31679134649150625,
+   "ratio": 0.34026928948091545,
+   "density": 0.7833333333333333
+  }
+ },
+ "true_dir": {
+  "alpha_abs": "H>A",
+  "ratio": "H<A",
+  "density": "H>A"
+ },
+ "pred_dir": {
+  "alpha_abs": "H>A",
+  "ratio": "H<A",
+  "density": "H>A"
+ },
+ "dir_ok": {
+  "alpha_abs": true,
+  "ratio": true,
+  "density": true
+ },
+ "dir_match": {
+  "alpha_abs": true,
+  "ratio": true,
+  "density": true
+ },
+ "human_docs": [
+  "ZH-H01",
+  "ZH-H02",
+  "ZH-H03"
+ ],
+ "ai_docs": [
+  "ZH-A-DS-01",
+  "ZH-A-DS-02",
+  "ZH-A-DS-03",
+  "ZH-A-DS-04",
+  "ZH-A-DS-05"
+ ],
+ "selfgen_err": {
+  "alpha_abs": 0.25347938590478,
+  "ratio": 0.3537877424141741,
+  "density": 0.7780511811023622
+ },
+ "val_err": {
+  "alpha_abs": 0.24627208985353122,
+  "ratio": 0.37720431185232395,
+  "density": 0.49621257478777964
+ },
+ "best_score": 0.3732296588312116,
+ "note": "G1 误差基准=长文档(bilzh 缺口定义域)；分层：≤0.3 严格/≤0.5 降级（G2 加严+G3 封顶部分）/否则否定→RWR；偏差声明①：原\"held-out 全文档\"基准拆分为全文档/长文档双报；偏差声明②：代理损失加入 doc 级相对软密度辅助项（MSE 回归向均值衰减→密度低估的针对性修复）"
+}
